@@ -1,3 +1,4 @@
+'use client'
 import OurCustomers from "@/components/customers/OurCustomers";
 import SloganTitle from "@/components/landing/SloganTitle";
 import OurProfessionals from "@/components/professional/OurProfessionals";
