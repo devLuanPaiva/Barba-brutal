@@ -2,11 +2,19 @@
   "name": "@barba/core",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsup src/index.ts --dts --watch",
+    "build": "tsup src/index.ts --dts --minify"
   },
   "keywords": [],
   "author": "Luan Alves de Paiva",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "tsup": "^8.1.2"
+  },
+  "dependencies": {
+    "typescript": "^5.5.3"
+  }
 }
