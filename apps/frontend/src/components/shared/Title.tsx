@@ -1,6 +1,6 @@
 import TitleProps from "@/data/interfaces/TitleProps.interface";
 
-export default function Titulo(props: TitleProps) {
+export default function Title(props: TitleProps) {
     return (
         <div className="flex flex-col items-center gap-2">
             {props.tag && (
