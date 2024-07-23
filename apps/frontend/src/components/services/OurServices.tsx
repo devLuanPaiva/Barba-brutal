@@ -1,3 +1,4 @@
+'use client'
 import useServices from "@/data/hooks/useServices"
 import { useRouter } from "next/navigation"
 import Title from "../shared/Title"

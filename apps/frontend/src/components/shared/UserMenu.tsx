@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import Image from 'next/image'
 import useUser from '@/data/hooks/useUser'
-import UserMenuProps from '@/data/interfaces/UserMenuProps.interfaces'
+import UserMenuProps from '@/data/interfaces/UserMenuProps.interface'
 
 export default function UserMenu(props: UserMenuProps) {
     const { logout } = useUser()
