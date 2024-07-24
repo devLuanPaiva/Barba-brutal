@@ -11,7 +11,7 @@ export class AppointmentRepository implements RepositoryAppointment {
   async create(appointment: Appointment): Promise<void> {
     await this.prismaService.appointment.create({
       data: {
-        data: appointment.data,
+        date: appointment.date,
         emailCustomer: appointment.emailCoustumer,
         professional: { connect: { id: appointment.professional.id } },
         service: {
@@ -24,7 +24,7 @@ export class AppointmentRepository implements RepositoryAppointment {
     const result: any = await this.prismaService.appointment.findMany({
       where: {
         emailCustomer: email,
-        data: {
+        date: {
           gte: new Date(),
         },
       },
@@ -33,7 +33,7 @@ export class AppointmentRepository implements RepositoryAppointment {
         professional: true,
       },
       orderBy: {
-        data: 'desc',
+        date: 'desc',
       },
     });
     return result;
@@ -52,7 +52,7 @@ export class AppointmentRepository implements RepositoryAppointment {
     const result: any = await this.prismaService.appointment.findMany({
       where: {
         professionalId: professional,
-        data: {
+        date: {
           gte: startDay,
           lte: endDay,
         },

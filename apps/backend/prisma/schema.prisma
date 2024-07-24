@@ -37,7 +37,7 @@ model Service {
 model Appointment {
   id             Int          @id @default(autoincrement())
   emailCustomer  String
-  data           DateTime
+  date           DateTime
   professional   Professional @relation(fields: [professionalId], references: [id])
   professionalId Int
   service        Service[]
