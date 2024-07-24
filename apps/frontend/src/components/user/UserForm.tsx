@@ -1,3 +1,4 @@
+'use client'
 import useUser from "@/data/hooks/useUser"
 import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
