@@ -1,3 +1,4 @@
+'use client'
 import useUser from "@/data/hooks/useUser";
 import { usePathname, useRouter } from "next/navigation";
 

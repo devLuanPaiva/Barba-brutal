@@ -1,3 +1,4 @@
+'use client'
 import AppointmentContextProps from "../interfaces/AppointmentContextProps.interface";
 import React, {createContext, useCallback, useEffect, useState } from "react";
 import { Professional, Service } from "@barba/core";
