@@ -1,5 +1,5 @@
 import Appointment from "../interfaces/Appointment.interface";
-import AppointmentRepository from "../interfaces/AppointmentRepository";
+import  RepositoryAppointment from "../interfaces/RepositoryAppointment";
 import GetOccupiedSlots from "../interfaces/GetOccupiedSlots";
-export type { Appointment, AppointmentRepository };
+export type { Appointment,  RepositoryAppointment };
 export { GetOccupiedSlots };

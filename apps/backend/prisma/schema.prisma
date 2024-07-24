@@ -36,11 +36,10 @@ model Service {
 
 model Appointment {
   id             Int          @id @default(autoincrement())
-  professionalId Int
   emailCustomer  String
   data           DateTime
   professional   Professional @relation(fields: [professionalId], references: [id])
-  professionalIds Int
+  professionalId Int
   service        Service[]
 
   @@map("appointment")
