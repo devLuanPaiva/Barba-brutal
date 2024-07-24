@@ -27,7 +27,7 @@ export default function SloganTitle() {
                         🤘 Seu estilo é o nosso rock! 🤘
                     </p>
                     <Link
-                        href="/agendamento"
+                        href="/access"
                         className="
                             bg-gradient-to-r from-green-500 to-green-600
                             text-white font-semibold text-base md:text-lg
