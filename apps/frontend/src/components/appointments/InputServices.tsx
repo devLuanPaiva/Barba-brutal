@@ -1,4 +1,4 @@
-import useServices from '@/data/hooks/useServices'
+import { useServices } from '@barba/ui'
 import InputServicesProps from '@/data/interfaces/InputServicesProps.interface';
 import { Service } from '@barba/core'
 import Image from 'next/image'

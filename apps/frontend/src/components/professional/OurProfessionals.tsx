@@ -1,4 +1,4 @@
-import useProfessionals from "@/data/hooks/useProfessionals"
+import { useProfessionals } from "@barba/ui"
 import Title from "../shared/Title"
 import { Professional } from "@barba/core"
 import ItemProfessionals from "./ItemProfessionals"
@@ -21,7 +21,7 @@ export default function OurProfessionals() {
                 ) : (
                     <p>Não tem profissionais disponíveis.</p>
                 )}
-               
+
             </div>
         </div>
     )
