@@ -3,8 +3,7 @@ import {
   Professional as PrismaProfessional,
   Service as PrismaService,
 } from 'prisma/prisma-client';
-import services from '@barba/core/src/constants/services.constants';
-import professional from '@barba/core/src/constants/professionals.constants';
+import { professional, services } from '@barba/core';
 
 const prisma = new PrismaClient();
 

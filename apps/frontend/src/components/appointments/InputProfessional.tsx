@@ -8,6 +8,7 @@ function Option(props: {
     onClick: (p: Professional) => void
     selected?: boolean
 }) {
+    console.log(props.professional)
     return (
         <div
             className={`
@@ -41,14 +42,16 @@ export default function ProfessionalInput(props: ProfessionalInputProps) {
         <div className="flex flex-col gap-5">
             <span className="text-sm uppercase text-zinc-400">Available Professionals</span>
             <div className="grid grid-cols-2 md:grid-cols-3 self-start gap-5">
-                {professional.map((professional) => (
-                    <Option
-                        key={professional.id}
-                        professional={professional}
-                        onClick={props.professionalChanged}
-                        selected={professional.id === props.professional?.id}
-                    />
-                ))}
+                {professional && Array.isArray(professional) ? (
+                    professional.map((professional) => (
+                        <Option
+                            key={professional.id}
+                            professional={professional}
+                            onClick={props.professionalChanged}
+                            selected={professional.id === props.professional?.id}
+                        />
+                    ))
+                ) : (<p>Não tem serviços disponiveis</p>)}
             </div>
         </div>
     )

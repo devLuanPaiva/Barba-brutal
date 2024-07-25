@@ -1,7 +1,7 @@
-import InputDayProps from "@/date/interfaces/InputDayProps.interface";
-import { UtilsDate } from "@barba/core/src/utils";
+import DayInputProps from "@/data/interfaces/DayInputProps.interface";
+import { UtilsDate } from "@barba/core";
 
-export default function InputDay(props: InputDayProps) {
+export default function InputDay(props: DayInputProps) {
     function renderDay(date: Date) {
         if (date.getDay() === 0) {
             date.setDate(date.getDate() + 1)
@@ -9,6 +9,7 @@ export default function InputDay(props: InputDayProps) {
         const selected = date.getDate() === props.date.getDate()
         return (
             <div
+                key={date.toISOString()}
                 onClick={() => props.changedDate(date)}
                 className={`
                     flex-1 flex flex-col items-center gap-2 py-4 cursor-pointer

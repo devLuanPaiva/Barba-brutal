@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppointmentRepository } from './appointment.repository';
-import { Appointment, GetOccupiedSlots } from '@barba/core/src/appointment/';
+import { Appointment, GetOccupiedSlots } from '@barba/core';
 
 @Controller('appointment')
 export class AppointmentController {

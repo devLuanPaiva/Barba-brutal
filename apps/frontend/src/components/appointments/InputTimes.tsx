@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { IconX } from '@tabler/icons-react'
-import { UtilsDate, UtilsSchedule } from '@barba/core/src/utils'
+import { UtilsDate, UtilsSchedule } from '@barba/core'
 import useAppointment from '@/data/hooks/useAppointments'
 import TimesInputProps from '@/data/interfaces/TimesInputProps.interface'
 

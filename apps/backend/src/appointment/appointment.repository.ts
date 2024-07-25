@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-  Appointment,
-  RepositoryAppointment,
-} from '@barba/core/src/appointment/';
+import { Appointment, RepositoryAppointment} from '@barba/core';
 import { PrismaService } from 'src/db/prisma.service';
 
 @Injectable()

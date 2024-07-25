@@ -2,7 +2,7 @@
 import AppointmentContextProps from "../interfaces/AppointmentContextProps.interface";
 import React, {createContext, useCallback, useEffect, useState } from "react";
 import { Professional, Service } from "@barba/core";
-import { UtilsDate } from '@barba/core/src/utils'
+import { UtilsDate } from '@barba/core'
 import useUser from "../hooks/useUser";
 import useAPI from "../hooks/useAPI";
 

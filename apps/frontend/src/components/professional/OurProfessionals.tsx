@@ -14,9 +14,14 @@ export default function OurProfessionals() {
                 secondary="Só os mais brabos estão aqui! Temos o orgulho de ter o time mais qualificado do Brasil!"
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 ">
-                {professional.map((professional: Professional) => (
-                    <ItemProfessionals key={professional.id} professional={professional} />
-                ))}
+                {professional && Array.isArray(professional) ? (
+                    professional.map((professional: Professional) => (
+                        <ItemProfessionals key={professional.id} professional={professional} />
+                    ))
+                ) : (
+                    <p>Não tem profissionais disponíveis.</p>
+                )}
+               
             </div>
         </div>
     )
