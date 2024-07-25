@@ -1,4 +1,4 @@
-import AvaliationProps from '@/data/interfaces/AvaliationProps'
+import AvaliationProps from '@/data/interfaces/AvaliationProps.interface'
 import { IconStar, IconStarFilled, IconStarHalfFilled } from '@tabler/icons-react'
 
 export default function Avaliation(props: AvaliationProps) {

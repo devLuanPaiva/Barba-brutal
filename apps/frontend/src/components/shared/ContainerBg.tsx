@@ -1,4 +1,4 @@
-import { ContainerBgProps } from '@/data/interfaces/ContainerBgProps.interface'
+import  ContainerBgProps from '@/data/interfaces/ContainerBgProps.interface'
 import Image from 'next/image'
 
 export default function ContainerBackground(props: ContainerBgProps) {

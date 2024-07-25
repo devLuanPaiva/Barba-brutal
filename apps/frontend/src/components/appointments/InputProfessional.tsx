@@ -1,4 +1,4 @@
-import useProfessionals from '@/data/hooks/useProfessionals'
+import { useProfessionals } from '@barba/ui'
 import ProfessionalInputProps from '@/data/interfaces/ProfessionalInputProps.interface'
 import { Professional } from '@barba/core'
 import Image from 'next/image'

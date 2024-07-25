@@ -1,5 +1,5 @@
 'use client'
-import useServices from "@/data/hooks/useServices"
+import { useServices } from "@barba/ui"
 import { useRouter } from "next/navigation"
 import Title from "../shared/Title"
 import { Service } from "@barba/core"
