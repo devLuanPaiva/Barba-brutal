@@ -5,7 +5,7 @@ const URL_BASE = process.env.NEXT_PUBLIC_URL_BASE;
 export default function useAPI() {
   const httpGET = useCallback(async function (url: string): Promise<any> {
     try {
-      const response = await fetch(`${URL_BASE}${url}`);
+      const response = await fetch(`${URL_BASE}/${url}`);
       return await response.json();
     } catch (err) {
       console.error("Error ao executar requisição:", err);

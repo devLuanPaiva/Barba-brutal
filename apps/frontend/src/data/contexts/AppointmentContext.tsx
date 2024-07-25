@@ -25,34 +25,25 @@ export function AppointmentProvider({ children }: { children: React.ReactNode })
     }
 
     function totalDuration() {
-        const duration = services.reduce((acc, current) => {
-            return (acc += current.amountSlots * 15)
-        }, 0)
-
+        const duration = services.reduce((acc, current) => acc + (current.amountSlots * 15), 0)
         return `${Math.trunc(duration / 60)}h ${duration % 60}m`
     }
 
     function totalPrice() {
-        return services.reduce((acc, current) => {
-            return (acc += current.price)
-        }, 0)
+        return services.reduce((acc, current) => acc + current.price, 0)
     }
 
     const selectDate = useCallback(function (date: Date) {
         setDate(date)
     }, [])
     function numberOfSlots() {
-        const totalSlots = services.reduce((acc, service) => {
-            return (acc += service.amountSlots)
-        }, 0)
-
-        return totalSlots
+        return services.reduce((acc, service) => acc + service.amountSlots, 0)
     }
 
     async function schedule() {
         if (!user?.email) return
 
-        await httpPOST('appointments', {
+        await httpPOST('appointment', {
             emailCustomer: user.email,
             date: date,
             professional: professional!,
@@ -73,7 +64,7 @@ export function AppointmentProvider({ children }: { children: React.ReactNode })
                 if (!date || !professional) return []
                 const dateString = date.toISOString().slice(0, 10)
                 const occupancy = await httpGET(
-                    `appointments/occupancy/${professional.id}/${dateString}`
+                    `appointment/occupancy/${professional.id}/${dateString}`
                 )
                 return occupancy ?? []
             } catch (e) {

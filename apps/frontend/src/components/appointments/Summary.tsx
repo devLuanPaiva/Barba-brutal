@@ -2,8 +2,7 @@ import { IconCalendar } from '@tabler/icons-react'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import useAppointment from '@/date/hooks/useAppointments'
-
+import useAppointment from '@/data/hooks/useAppointments'
 export default function Summary() {
     const [loading, setLoading] = useState(false)
     const { date, professional, services, totalPrice, totalDuration, schedule } = useAppointment()
@@ -85,7 +84,7 @@ export default function Summary() {
             <div className="flex justify-between items-center border-b border-zinc-800 p-5">
                 <span className="text-xs uppercase text-zinc-400">Valor Total</span>
                 <span className=" text-white font-semibold">
-                    {totalPrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+                    {totalPrice().toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
 
                 </span>
             </div>
