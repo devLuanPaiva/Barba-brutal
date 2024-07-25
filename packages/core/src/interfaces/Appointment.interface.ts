@@ -3,8 +3,8 @@ import Service from "./Service.interface"
 
 export default interface Appointment{
     id: number
-    emailCoustumer: string
+    emailCustomer: string
     date: Date
     professional: Professional
-    service: Service[]
+    services: Service[]
 }
