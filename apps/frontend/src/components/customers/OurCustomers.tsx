@@ -1,18 +1,18 @@
-import customers from "@barba/core/src/constants/customers.constants"
+import { customers } from "@barba/core"
 import ItemCustomers from "./ItemCustomers"
 import Title from "../shared/Title"
 import { LayoutGrid } from "../ui/layout-grid"
 
 export default function OurCustomers() {
     const classes = ['md:col-span-2', 'col-span-1', 'col-span-1', 'md:col-span-2']
-    const cards = customers.map((customers, i) => {
+    const cards = customers && Array.isArray(customers) ? customers.map((customer, i) => {
         return {
-            id: customers.id,
-            content: <ItemCustomers name={customers.name} testimony={customers.testimony} />,
-            className: classes[i],
-            thumbnail: customers.imageURL,
+            id: customer.id,
+            content: <ItemCustomers name={customer.name} testimony={customer.testimony} />,
+            className: classes[i % classes.length],
+            thumbnail: customer.imageURL,
         }
-    })
+    }) : []
 
     return (
         <div className="container flex flex-col items-center gap-16">

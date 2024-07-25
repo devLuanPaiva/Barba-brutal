@@ -1,8 +1,8 @@
-import AppointmentRepository from "./AppointmentRepository";
 import { SLOT_TIME } from "../constants";
+import RepositoryAppointment from "./RepositoryAppointment";
 
 export default class GetOccupiedSlots {
-  constructor(private readonly repo: AppointmentRepository) {}
+  constructor(private readonly repo: RepositoryAppointment) {}
 
   async execute(professionalId: number, date: Date): Promise<string[]> {
     const appointments = await this.repo.searchProfessionalAndData(
@@ -12,7 +12,7 @@ export default class GetOccupiedSlots {
     const data = appointments
       .map((appointment) => {
         return {
-          date: appointment.data,
+          date: appointment.date,
           slots: appointment.service.reduce(
             (total, service) => total + service.amountSlots,
             0

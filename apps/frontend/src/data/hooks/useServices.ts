@@ -1,7 +1,7 @@
-import services from "@barba/core/src/constants/services.constants";
+import { services } from "@barba/core";
 
 export default function useServices() {
-    return {
-        services,
-    }
+  return {
+    services,
+  };
 }

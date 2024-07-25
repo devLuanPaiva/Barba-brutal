@@ -1,6 +1,6 @@
 import React from "react"
 
-export interface ContainerBgProps {
+export default interface ContainerBgProps {
     children: React.ReactNode
     image: string
 }

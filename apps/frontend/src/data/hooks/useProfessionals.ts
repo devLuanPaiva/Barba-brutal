@@ -1,7 +1,7 @@
-import professional from "@barba/core/src/constants/professionals.constants";
+import { professional } from "@barba/core";
 
 export default function useProfessionals() {
-    return {
-        professional,
-    }
+  return {
+    professional,
+  };
 }

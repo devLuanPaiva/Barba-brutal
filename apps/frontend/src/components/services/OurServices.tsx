@@ -10,7 +10,7 @@ export default function OurServices() {
     const { services } = useServices()
 
     function startAppointments() {
-        router.push('/agendamento')
+        router.push('/access')
     }
 
     return (
@@ -21,9 +21,13 @@ export default function OurServices() {
                 secondary="Cabelo afiado, barba de lenhador e mãos de motoqueiro, tudo ao som de rock pesado!"
             />
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
-                {services.map((service: Service) => (
-                    <ItemServices key={service.id} service={service} onClick={startAppointments} />
-                ))}
+                {services && Array.isArray(services) ? (
+                    services.map((service: Service) => (
+                        <ItemServices key={service.id} service={service} onClick={startAppointments} />
+                    ))
+                ) : (
+                    <p>Não tem serviços disponiveis</p>
+                )}
             </div>
         </div>
     )

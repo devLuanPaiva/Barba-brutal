@@ -4,7 +4,7 @@ import Service from "./Service.interface"
 export default interface Appointment{
     id: number
     emailCoustumer: string
-    data: Date
+    date: Date
     professional: Professional
     service: Service[]
 }
