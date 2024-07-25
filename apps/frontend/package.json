@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@barba/core": "*",
+    "@barba/ui": "*",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@tabler/icons-react": "^3.11.0",
     "class-variance-authority": "^0.7.0",

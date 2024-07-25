@@ -10,13 +10,17 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "dev": "expo start --web"
+    "dev": "expo start --web",
+    "build:android": "expo build:android",
+    "build:ios": "expo build:ios",
+    "build:web": "expo export --platform web"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
     "@barba/core": "*",
+    "@barba/ui": "*",
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^6.0.2",
     "expo": "~51.0.21",
