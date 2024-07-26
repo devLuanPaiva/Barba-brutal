@@ -12,7 +12,7 @@ export class AppointmentRepository implements RepositoryAppointment {
           date: appointment.date,
           emailCustomer: appointment.emailCustomer,
           professional: { connect: { id: appointment.professional.id } },
-          service: {
+          services: {
             connect: appointment.services.map((service) => ({
               id: service.id,
             })),
@@ -25,7 +25,7 @@ export class AppointmentRepository implements RepositoryAppointment {
     }
   }
   async searchEmail(email: string): Promise<Appointment[]> {
-    const results = await this.prismaService.appointment.findMany({
+    return this.prismaService.appointment.findMany({
       where: {
         emailCustomer: email,
         date: {
@@ -33,21 +33,13 @@ export class AppointmentRepository implements RepositoryAppointment {
         },
       },
       include: {
-        service: true,
+        services: true,
         professional: true,
       },
       orderBy: {
         date: 'desc',
       },
     });
-
-    return results.map((result) => ({
-      id: result.id,
-      emailCustomer: result.emailCustomer,
-      date: result.date,
-      professional: result.professional,
-      services: result.service,
-    }));
   }
   async searchProfessionalAndData(
     professional: number,
@@ -68,7 +60,7 @@ export class AppointmentRepository implements RepositoryAppointment {
           lte: endDay,
         },
       },
-      include: { service: true },
+      include: { services: true },
     });
     return result;
   }
