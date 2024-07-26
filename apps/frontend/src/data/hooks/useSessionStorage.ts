@@ -2,13 +2,13 @@
 import { useCallback } from 'react'
 
 export default function useSessionStorage() {
-    const get = useCallback((chave: string) => {
-        const valorLocal = window?.sessionStorage?.getItem(chave)
-        return valorLocal ? JSON.parse(valorLocal) : null
+    const get = useCallback((key: string) => {
+        const localValue = window?.sessionStorage?.getItem(key)
+        return localValue ? JSON.parse(localValue) : null
     }, [])
 
-    const set = useCallback((chave: string, valor: any) => {
-        window?.sessionStorage?.setItem(chave, JSON.stringify(valor))
+    const set = useCallback((key: string, value: any) => {
+        window?.sessionStorage?.setItem(key, JSON.stringify(value))
     }, [])
 
     return { get, set }
