@@ -1,4 +1,3 @@
-import { Text, View } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { UserProvider } from './data/contexts/UserContext'
 import { AppointmentProvider } from './data/contexts/AppointmentContext'
