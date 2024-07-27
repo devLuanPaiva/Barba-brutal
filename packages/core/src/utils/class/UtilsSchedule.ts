@@ -11,7 +11,7 @@ export default class UtilsSchedule {
   private static scheduleGenerator(hour: number[]) {
     return hour.reduce((times, hour) => {
       const allTimes = this.minutes.map((minute) => {
-        return `${String(hour).padStart(2, "0")}: ${String(minute).padStart(2, "0")}`;
+        return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
       });
       return times.concat(allTimes);
     }, [] as string[]);
