@@ -11,7 +11,7 @@ export default function InputTimes(props: TimesInputProps) {
     const { occupiedSchedules } = useAppointment()
     const { morning, afternoon, evening } = UtilsSchedule.timesOfTheDay()
 
-    const selectedTime = props.date.toLocaleTimeString('en-US', {
+    const selectedTime = props.date.toLocaleTimeString('pt-BR', {
         hour: '2-digit',
         minute: '2-digit',
     })
