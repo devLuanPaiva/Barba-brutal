@@ -1,0 +1,20 @@
+{
+  "name": "@barba/core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsup src/index.ts --dts --watch",
+    "build": "tsup src/index.ts --dts --minify"
+  },
+  "keywords": [],
+  "author": "Luan Alves de Paiva",
+  "license": "ISC",
+  "devDependencies": {
+    "tsup": "^8.1.2"
+  },
+  "dependencies": {
+    "typescript": "^5.5.3"
+  }
+}
