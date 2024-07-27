@@ -33,7 +33,7 @@ export default function Summary({ navigation }: any) {
                     style={styles.botao}
                     onPress={async () => {
                         await schedule()
-                        navigation.navigate('Inicio')
+                        navigation.navigate('Home')
                     }}
                 >
                     <Text style={styles.textoBotao}>Finalizar Agendamento</Text>

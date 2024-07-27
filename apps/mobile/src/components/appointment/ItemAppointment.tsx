@@ -26,12 +26,12 @@ export default function ItemAppointment(props: AgendamentoItemProps) {
     }
 
     function addTotalServices() {
-        return props.appointment.services.reduce((acc, servico) => acc + servico.price, 0)
+        return props.appointment.services.reduce((acc, service) => acc + service.price, 0)
     }
 
     function renderServices() {
-        return props.appointment.services.reduce((acc, servico, index) => {
-            return `${acc}${index + 1}. ${servico.name}${index < props.appointment.services.length - 1 ? ', ' : ''}`
+        return props.appointment.services.reduce((acc, service, index) => {
+            return `${acc}${index + 1}. ${service.name}${index < props.appointment.services.length - 1 ? ', ' : ''}`
         }, '')
     }
 

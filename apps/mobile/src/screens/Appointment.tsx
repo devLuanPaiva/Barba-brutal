@@ -5,7 +5,7 @@ import useAppointment from '../data/hooks/useAppointments'
 import Steps from '../components/appointment/Steps'
 import ProfessionalInput from '../components/appointment/ProfessionalInput'
 import ServicesInput from '../components/appointment/ServicesInput'
-import DateInput from '../components/appointment/DataInput'
+import DateInput from '../components/appointment/DateInput'
 
 export default function Appointment({ navigation }: any) {
     const [allowNextStep, setAllowNextStep] = useState<boolean>(false)
