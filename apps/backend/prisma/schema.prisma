@@ -40,7 +40,7 @@ model Appointment {
   date           DateTime
   professional   Professional @relation(fields: [professionalId], references: [id])
   professionalId Int
-  service        Service[]
+  services        Service[]
 
   @@map("appointment")
 }

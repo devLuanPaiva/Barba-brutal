@@ -13,7 +13,7 @@ export default class GetOccupiedSlots {
       .map((appointment) => {
         return {
           date: appointment.date,
-          slots: appointment.service.reduce(
+          slots: appointment.services.reduce(
             (total, service) => total + service.amountSlots,
             0
           ),

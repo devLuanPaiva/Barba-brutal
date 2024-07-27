@@ -1,14 +1,21 @@
-import { Pressable, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
+import Profile from "../components/profile";
 
-export default function User({navigation}: any){
-    return(
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Página de usuário</Text>
-            <Pressable onPress={() => {
-                navigation.navigate('Main')
-            }}>
-                <Text>Ir para Main</Text>
-            </Pressable>
-        </View>
+export default function User({ navigation }: any) {
+    return (
+        <SafeAreaView style={styles.container}>
+            <View style={{ flex: 1, paddingTop: 15 }}>
+                <Profile navigation={navigation} />
+            </View>
+        </SafeAreaView>
     )
 }
+const styles = StyleSheet.create({
+    container: {
+        display: 'flex',
+        flex: 1,
+        gap: 12,
+        width: '100%',
+        backgroundColor: 'black',
+    },
+})
