@@ -6,3 +6,5 @@ export default interface Professional {
   avaliation: number;
   amountAvaliation: number;
 }
+
+//  interface de profissional 

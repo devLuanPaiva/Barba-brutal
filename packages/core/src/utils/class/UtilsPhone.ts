@@ -5,6 +5,7 @@ export default class PhoneUtils {
     return numbers.length <= 10
       ? this.replaceNumbers(numbers, "(xx) xxxx-xxxx")
       : this.replaceNumbers(numbers, "(xx) xxxxx-xxxx");
+      // essa função, recebe uma string vazia e de imediato coloca a mascara. conforme o usuário vai digitando o número, cada x é substituido por o número, ficando apenas os () e o -.
   }
 
   static unformat(phone: string): string {
@@ -23,5 +24,7 @@ export default class PhoneUtils {
       formatted = formatted.replace(")", "").replace(" ", "");
     if (phone.length <= 6) formatted = formatted.replace("-", "");
     return formatted;
+
+    // Aqui basicamente é o controle, conforme o usuário vai digitando, ele verifica o que precisa ser removido no momento.
   }
 }
