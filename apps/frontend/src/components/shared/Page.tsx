@@ -7,5 +7,6 @@ export default function Page(props: PageProps) {
             <main>{props.children}</main>
             <Footer />
         </div>
+        // cria esse componente compartilhado page, para que todas as telas envolvidas com ele, obtenham esse estilo, esse footer e estejam dentro de main.
     )
 }

@@ -9,5 +9,7 @@ export default function ContainerBackground(props: ContainerBgProps) {
                 <div className="container py-10">{props.children}</div>
             </section>
         </figure>
+
+        // esse componente vai mostrar as seções que estiverem envolvidas por ele com um background diferente.
     )
 }
