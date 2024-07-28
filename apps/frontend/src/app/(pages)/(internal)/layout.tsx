@@ -9,5 +9,6 @@ export default function Layout(props: any) {
                 <Page> {props.children} </Page>
             </AppointmentProvider>
         </UserForce>
+        // O fato da aplicação estar aclopada no UserForce, significa dizer que só poderá ser acessado se tiver usuário logado. Tendo em vista que a partir daqui são páginas internas.
     )
 }

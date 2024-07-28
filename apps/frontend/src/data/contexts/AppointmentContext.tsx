@@ -1,8 +1,7 @@
 'use client'
 import AppointmentContextProps from "../interfaces/AppointmentContextProps.interface";
 import React, {createContext, useCallback, useEffect, useState } from "react";
-import { Professional, Service } from "@barba/core";
-import { UtilsDate } from '@barba/core'
+import { Professional, Service, UtilsDate } from "@barba/core";
 import useUser from "../hooks/useUser";
 import useAPI from "../hooks/useAPI";
 
@@ -27,10 +26,12 @@ export function AppointmentProvider({ children }: { children: React.ReactNode })
     function totalDuration() {
         const duration = services.reduce((acc, current) => acc + (current.amountSlots * 15), 0)
         return `${Math.trunc(duration / 60)}h ${duration % 60}m`
+        // Calcula a duração dos serviços
     }
 
     function totalPrice() {
         return services.reduce((acc, current) => acc + current.price, 0)
+        // calcula o valor dos serviços
     }
 
     const selectDate = useCallback(function (date: Date) {
@@ -59,6 +60,7 @@ export function AppointmentProvider({ children }: { children: React.ReactNode })
         setServices([])
     }
     const getOccupiedSchedules = useCallback(
+        // metodo para saber os horários ocupados
         async function (date: Date, professional: Professional): Promise<string[]> {
             try {
                 if (!date || !professional) return []

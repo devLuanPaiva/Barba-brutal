@@ -12,7 +12,9 @@ export default function UserForce(props: any) {
         return <div className="flex justify-center items-center h-screen">Direcionando...</div>
     }
     if (!user?.email && loading) return <div>Carregando...</div>
-    if (!user?.email) return redirect(`/access?desiny=${path}`)
+    if (!user?.email) return redirect(`/access?desiny=${path}`)    
 
     return props.children;
+
+    // Esse componente vai garantir que só vai mostrar as páginas aclopadas por ele se tiver usuário. 
 }

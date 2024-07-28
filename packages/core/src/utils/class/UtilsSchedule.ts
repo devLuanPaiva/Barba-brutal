@@ -6,6 +6,7 @@ export default class UtilsSchedule {
       morning: this.scheduleGenerator([8, 9, 10, 11]),
       afternoon: this.scheduleGenerator([14, 15, 16, 17]),
       evening: this.scheduleGenerator([18, 19, 20, 21]),
+      // Retorna todos os horários dos turnos
     };
   }
   private static scheduleGenerator(hour: number[]) {
@@ -15,5 +16,6 @@ export default class UtilsSchedule {
       });
       return times.concat(allTimes);
     }, [] as string[]);
+    // Retorna com o slot de 15 minutos em cada horário até 45 ['08:00, 08:15', '08:30', '08:45', '09:00', ...]
   }
 }
