@@ -7,5 +7,7 @@ export class ServiceController {
   @Get()
   getAll() {
     return this.prisma.service.findMany();
+
+    // aqui retorna todos os serviços cadastrados no db
   }
 }

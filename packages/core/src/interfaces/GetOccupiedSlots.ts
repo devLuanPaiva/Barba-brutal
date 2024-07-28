@@ -1,10 +1,12 @@
 import { SLOT_TIME } from "../constants";
 import RepositoryAppointment from "./RepositoryAppointment";
 
+// Esse código trata-se de um caso de uso para mostrar os horários ocupados para o funcionário em uma data especifica.
 export default class GetOccupiedSlots {
   constructor(private readonly repo: RepositoryAppointment) {}
 
   async execute(professionalId: number, date: Date): Promise<string[]> {
+    // recebe o profissional e a data como parametro
     const appointments = await this.repo.searchProfessionalAndData(
       professionalId,
       date
@@ -17,6 +19,7 @@ export default class GetOccupiedSlots {
             (total, service) => total + service.amountSlots,
             0
           ),
+          // vai buscar os agendamentos do profissional na data, a partir desses agendamentos, ele soma a quantidade de slots (15 minutos pra cada) e retorna
         };
       })
       .reduce((occupiedSlots: Date[], data: any) => {

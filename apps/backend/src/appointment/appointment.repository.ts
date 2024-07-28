@@ -2,9 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { Appointment, RepositoryAppointment } from '@barba/core';
 import { PrismaService } from 'src/db/prisma.service';
 
+// Esse código implementa os metodos requeridos la no core, no RepositoryAppointment.
 @Injectable()
 export class AppointmentRepository implements RepositoryAppointment {
   constructor(private readonly prismaService: PrismaService) {}
+
+  // Ele vai implementar um repositório que vai acessar via prisma o banco de dados
   async create(appointment: Appointment): Promise<void> {
     try {
       await this.prismaService.appointment.create({
@@ -31,13 +34,16 @@ export class AppointmentRepository implements RepositoryAppointment {
         date: {
           gte: new Date(),
         },
+        // Só vai buscar os agendamentos do presente para o futuro através do email do cliente.
       },
       include: {
         services: true,
         professional: true,
+        // Vai incluir os servicios e o profissional
       },
       orderBy: {
         date: 'desc',
+        // vai ordenar
       },
     });
   }
@@ -59,6 +65,7 @@ export class AppointmentRepository implements RepositoryAppointment {
           gte: startDay,
           lte: endDay,
         },
+        // Filtra pelo id do profissional e por uma data que seja maior que o inicio do dia e menor que o final do dia.
       },
       include: { services: true },
     });
