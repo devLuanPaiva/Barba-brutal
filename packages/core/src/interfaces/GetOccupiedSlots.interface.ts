@@ -1,11 +1,11 @@
 import { SLOT_TIME } from "../constants";
-import RepositoryAppointment from "./RepositoryAppointment";
+import RepositoryAppointment from "./RepositoryAppointment.interface";
 
 export default class GetOccupiedSlots {
   constructor(private readonly repo: RepositoryAppointment) {}
 
   async execute(professionalId: number, date: Date): Promise<string[]> {
-    const appointments = await this.repo.searchProfessionalAndData(
+    const appointments = await this.repo.searchProfessionalAndDate(
       professionalId,
       date,
     );

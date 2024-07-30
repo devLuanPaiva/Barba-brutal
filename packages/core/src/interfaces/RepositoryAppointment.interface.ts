@@ -3,8 +3,8 @@ import Appointment from "./Appointment.interface";
 export default interface RepositoryAppointment {
   create(appointment: Appointment): Promise<void>;
   searchEmail(email: string): Promise<Appointment[]>;
-  searchProfessionalAndData(
+  searchProfessionalAndDate(
     professional: number,
-    data: Date,
+    date: Date,
   ): Promise<Appointment[]>;
 }
