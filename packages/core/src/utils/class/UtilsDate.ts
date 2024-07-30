@@ -12,11 +12,11 @@ export default class UtilsDate {
     return newDate;
   }
   static formatDate(data: Date): string {
-    return data.toLocaleDateString('pt-BR', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    })
-}
+    return data.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
 }

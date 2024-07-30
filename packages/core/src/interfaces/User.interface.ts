@@ -1,5 +1,5 @@
-export default interface User{
-    email: string;
-    name: string;
-    phone?: string;
+export default interface User {
+  email: string;
+  name: string;
+  phone?: string;
 }

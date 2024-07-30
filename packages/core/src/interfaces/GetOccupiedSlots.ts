@@ -7,7 +7,7 @@ export default class GetOccupiedSlots {
   async execute(professionalId: number, date: Date): Promise<string[]> {
     const appointments = await this.repo.searchProfessionalAndData(
       professionalId,
-      date
+      date,
     );
     const data = appointments
       .map((appointment) => {
@@ -15,7 +15,7 @@ export default class GetOccupiedSlots {
           date: appointment.date,
           slots: appointment.services.reduce(
             (total, service) => total + service.amountSlots,
-            0
+            0,
           ),
         };
       })
@@ -23,7 +23,7 @@ export default class GetOccupiedSlots {
         const time = data.date;
         const slots = data.slots;
         const times = Array.from({ length: slots }, (_, i) =>
-          this.addMinutes(time, i * SLOT_TIME)
+          this.addMinutes(time, i * SLOT_TIME),
         );
         return [...occupiedSlots, ...times];
       }, [])

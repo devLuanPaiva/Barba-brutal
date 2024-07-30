@@ -14,7 +14,7 @@ export default function useAPI() {
   }, []);
   const httpPOST = useCallback(async function (
     url: string,
-    body: any
+    body: any,
   ): Promise<any> {
     await fetch(`${URL_BASE}/${url}`, {
       method: "POST",
