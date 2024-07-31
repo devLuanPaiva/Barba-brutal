@@ -16,7 +16,7 @@ export default function UserForce(props: any) {
     );
   }
   if (!user?.email && loading) return <div>Carregando...</div>;
-  if (!user?.email) return redirect(`/access?desiny=${path}`);
+  if (!user?.email) return redirect(`/access?destiny=${path}`);
 
   return props.children;
 }
