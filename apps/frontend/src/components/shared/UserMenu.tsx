@@ -29,7 +29,7 @@ export default function UserMenu(props: UserMenuProps) {
               src="/avatar.png"
               width={40}
               height={40}
-              alt={props.user.name}
+              alt={props.user.name ?? ''}
             />
           </div>
         </div>
