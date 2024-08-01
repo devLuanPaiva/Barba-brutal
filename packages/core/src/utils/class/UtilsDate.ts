@@ -11,12 +11,12 @@ export default class UtilsDate {
     newDate.setHours(parseInt(parts[0]!), parseInt(parts[1!]));
     return newDate;
   }
-  static formatDate(data: Date): string {
-    return data.toLocaleDateString('pt-BR', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    })
-}
+  static formatDate(date: Date): string {
+    return date.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
 }

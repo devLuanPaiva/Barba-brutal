@@ -1,5 +1,5 @@
-export default interface InputDateProps{
-    date: Date,
-    amountSlots: number
-    dateChanged: (date: Date) => void
+export default interface InputDateProps {
+  date: Date;
+  amountSlots: number;
+  dateChanged: (date: Date) => void;
 }
