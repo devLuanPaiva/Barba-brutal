@@ -1,6 +1,6 @@
-import { Professional } from "@barba/core"
+import { Professional } from "@barba/core";
 
 export default interface ProfessionalInputProps {
-    professional: Professional | null
-    professionalChanged: (professional: Professional) => void
+  professional: Professional | null;
+  professionalChanged: (professional: Professional) => void;
 }

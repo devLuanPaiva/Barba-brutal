@@ -1,21 +1,21 @@
 import { SLOT_TIME } from "../constants";
-import RepositoryAppointment from "./RepositoryAppointment";
+import RepositoryAppointment from "./RepositoryAppointment.interface";
 
 export default class GetOccupiedSlots {
   constructor(private readonly repo: RepositoryAppointment) {}
 
   async execute(professionalId: number, date: Date): Promise<string[]> {
-    const appointments = await this.repo.searchProfessionalAndData(
+    const appointments = await this.repo.searchProfessionalAndDate(
       professionalId,
-      date
+      date,
     );
     const data = appointments
       .map((appointment) => {
         return {
           date: appointment.date,
-          slots: appointment.service.reduce(
+          slots: appointment.services.reduce(
             (total, service) => total + service.amountSlots,
-            0
+            0,
           ),
         };
       })
@@ -23,7 +23,7 @@ export default class GetOccupiedSlots {
         const time = data.date;
         const slots = data.slots;
         const times = Array.from({ length: slots }, (_, i) =>
-          this.addMinutes(time, i * SLOT_TIME)
+          this.addMinutes(time, i * SLOT_TIME),
         );
         return [...occupiedSlots, ...times];
       }, [])
