@@ -10,10 +10,11 @@ import {
 import Image from "next/image";
 import useUser from "@/data/hooks/useUser";
 import UserMenuProps from "@/data/interfaces/UserMenuProps.interface";
+import { useRouter } from "next/navigation";
 
 export default function UserMenu(props: UserMenuProps) {
-  const { logout } = useUser();
-
+  const { user, logout } = useUser()
+  const router = useRouter()
   return props.user ? (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -37,6 +38,11 @@ export default function UserMenu(props: UserMenuProps) {
       <DropdownMenuContent>
         <DropdownMenuLabel>Menu Usuário</DropdownMenuLabel>
         <DropdownMenuSeparator />
+        {user?.barber && (
+          <DropdownMenuItem onClick={() => router.push('/schedule')}>
+            Minha Agenda
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
