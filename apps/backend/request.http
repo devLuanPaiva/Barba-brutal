@@ -1,1 +1,21 @@
 GET http://localhost:3001/service
+
+###
+POST http://localhost:3001/user/register
+Content-Type: application/json
+
+{
+    "name": "luanzin",
+    "email": "luanzin@gmail.com",
+    "password": "#Senha123",
+    "phone": "11999999999",
+}
+
+###
+POST http://localhost:3001/user/login
+Content-Type: application/json
+
+{
+    "email": "fernandaFaísca@barbabrutal.app",
+    "password": "#Senha123"
+}
