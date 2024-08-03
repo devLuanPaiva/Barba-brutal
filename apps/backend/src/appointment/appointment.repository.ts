@@ -67,4 +67,11 @@ export class AppointmentRepository implements RepositoryAppointment {
     });
     return result;
   }
+
+  async delete(id: number): Promise<void> {
+    await this.prismaService.appointment.delete({
+      where: { id: id },
+      include: { services: true },
+    });
+  }
 }

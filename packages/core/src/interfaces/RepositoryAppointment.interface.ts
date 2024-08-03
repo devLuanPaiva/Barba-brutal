@@ -7,4 +7,5 @@ export default interface RepositoryAppointment {
     professional: number,
     date: Date,
   ): Promise<Appointment[]>;
+  delete(id: number): Promise<void>;
 }

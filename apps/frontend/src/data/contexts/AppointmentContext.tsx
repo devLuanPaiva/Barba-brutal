@@ -1,8 +1,7 @@
 "use client";
 import AppointmentContextProps from "../interfaces/AppointmentContextProps.interface";
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import { Professional, Service } from "@barba/core";
-import { UtilsDate } from "@barba/core";
+import { Professional, Service, UtilsSchedule, UtilsDate } from "@barba/core";
 import useUser from "../hooks/useUser";
 import useAPI from "../hooks/useAPI";
 
@@ -28,29 +27,29 @@ export function AppointmentProvider({
   }
 
   function totalDuration() {
-    const duration = services.reduce(
-      (acc, current) => acc + current.amountSlots * 15,
-      0,
-    );
-    return `${Math.trunc(duration / 60)}h ${duration % 60}m`;
+    return UtilsSchedule.durationTotal(services)
   }
 
   function totalPrice() {
-    return services.reduce((acc, current) => acc + current.price, 0);
+    return services.reduce((acc, current) => {
+      return (acc + current.price)
+    }, 0);
   }
 
   const selectDate = useCallback(function (date: Date) {
     setDate(date);
   }, []);
+
   function numberOfSlots() {
-    return services.reduce((acc, service) => acc + service.amountSlots, 0);
+    return services.reduce((acc, service) => {
+      return (acc + service.amountSlots)
+    }, 0);
   }
 
   async function schedule() {
     if (!user?.email) return;
-
-    await httpPOST("appointment", {
-      emailCustomer: user.email,
+    await httpPOST('appointment', {
+      user: user,
       date: date,
       professional: professional!,
       services: services,
@@ -72,7 +71,7 @@ export function AppointmentProvider({
         const occupancy = await httpGET(
           `appointment/occupancy/${professional.id}/${dateString}`,
         );
-        return occupancy ?? [];
+        return Array.isArray(occupancy) ? occupancy : [];
       } catch (e) {
         return [];
       }
@@ -82,8 +81,15 @@ export function AppointmentProvider({
 
   useEffect(() => {
     if (!date || !professional) return;
-    getOccupiedSchedules(date, professional).then(setOccupiedSchedules);
+    getOccupiedSchedules(date, professional).then((schedules) => {
+      if (Array.isArray(schedules)) {
+        setOccupiedSchedules(schedules);
+      } else {
+        setOccupiedSchedules([]);
+      }
+    });
   }, [date, professional, getOccupiedSchedules]);
+
 
   return (
     <AppointmentContext.Provider
