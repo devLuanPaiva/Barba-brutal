@@ -1,12 +1,24 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { AppointmentRepository } from './appointment.repository';
-import { Appointment, GetOccupiedSlots } from '@barba/core';
+import { Appointment, GetOccupiedSlots, User } from '@barba/core';
+import { UserLogged } from 'src/user/user.decorator';
 
 @Controller('appointment')
 export class AppointmentController {
   constructor(private readonly repo: AppointmentRepository) {}
   @Post()
-  create(@Body() appointment: Appointment) {
+  create(@Body() appointment: Appointment, @UserLogged() userLogged: User) {
+    if (appointment.user.id !== userLogged.id) {
+      throw new HttpException('Usuário não autorizado', 401);
+    }
     return this.repo.create(appointment);
   }
 
@@ -21,5 +33,24 @@ export class AppointmentController {
   ) {
     const useCase = new GetOccupiedSlots(this.repo);
     return useCase.execute(+professional, new Date(dateParam));
+  }
+
+  @Get(':professional/:date')
+  searchProfessionalAndDate(
+    @Param('professional') professional: string,
+    @Param('date') dateParam: string,
+  ) {
+    return this.repo.searchProfessionalAndDate(
+      +professional,
+      new Date(dateParam),
+    );
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: number, @UserLogged() userLogged: User) {
+    if (!userLogged.barber) {
+      throw new HttpException('Usuário não é barbeiro', 401);
+    }
+    await this.repo.delete(+id);
   }
 }

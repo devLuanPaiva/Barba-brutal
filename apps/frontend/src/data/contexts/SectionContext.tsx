@@ -1,3 +1,4 @@
+'use client'
 import { User } from "@barba/core";
 import { createContext, useCallback, useEffect, useState } from "react";
 import cookie from 'js-cookie'
@@ -60,7 +61,7 @@ export function SectionProvider(props: any) {
             return {
                 token: jwt,
                 user: {
-                    id: decoded.sub,
+                    id: decoded.id,
                     name: decoded.name,
                     email: decoded.email,
                     barber: decoded.barber
@@ -70,6 +71,7 @@ export function SectionProvider(props: any) {
             cookie.remove(cookieName)
             return null
         }
+        
     }
     return (
         <SectionContext.Provider

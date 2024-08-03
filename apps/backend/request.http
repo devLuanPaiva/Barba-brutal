@@ -1,1 +1,34 @@
 GET http://localhost:3001/service
+
+###
+POST http://localhost:3001/user/register
+Content-Type: application/json
+
+{
+    "name": "luanzin",
+    "email": "luanzin@gmail.com",
+    "password": "#Senha123",
+    "phone": "11999999999",
+}
+
+###
+POST http://localhost:3001/user/login
+Content-Type: application/json
+
+{
+    "email": "fernanda@barbabrutal.app",
+    "password": "Senha123#"
+}
+
+###
+POST http://localhost:3001/appointment/
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsIm5hbWUiOiJsdWFuIiwiZW1haWwiOiJsdWFuemluQGdtYWlsLmNvbSIsInBob25lIjoiODU4ODQzOTQzMjkiLCJiYXJiZXIiOmZhbHNlLCJpYXQiOjE3MjI2ODc5NzEsImV4cCI6MTcyMzk4Mzk3MX0.SXCGYqdTGdtjv-WmlbrB8CFOpk1QJ2xrAzpd1CPTdMM
+
+{
+    "date": "2024-08-03T10:00:00.000Z",
+    "user": {"id": 15},
+    "professional": {"id": 1},
+    "service": [{"id": 1}]
+}
+
