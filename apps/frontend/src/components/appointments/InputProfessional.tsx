@@ -8,7 +8,6 @@ function Option(props: {
   onClick: (p: Professional) => void;
   selected?: boolean;
 }) {
-  console.log(props.professional);
   return (
     <div
       className={`
