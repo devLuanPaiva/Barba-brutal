@@ -8,7 +8,7 @@ import useAPI from "../hooks/useAPI";
 export interface UserContextProps {
   loading: boolean;
   user: User | null;
-  login: (user: User) => Promise<void>;
+  login: (user: Partial<User>) => Promise<void>;
   register: (user: User) => Promise<void>;
   logout: () => void;
 }

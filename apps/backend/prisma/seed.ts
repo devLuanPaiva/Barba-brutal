@@ -4,6 +4,7 @@ import {
   Service as PrismaService,
 } from 'prisma/prisma-client';
 import { professional, services, User } from '@barba/core';
+import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -22,42 +23,42 @@ async function seed() {
     {
       name: 'Marcão Machadada',
       email: 'marcao@barbabrutal.app',
-      password: 'Senha123#',
+      password: await bcrypt.hash('Senha123#', 10),
       phone: '11999999999',
       barber: true,
     },
     {
       name: 'Beto Brutal',
       email: 'beto@barbabrutal.app',
-      password: 'Senha123#',
+      password: await bcrypt.hash('Senha123#', 10),
       phone: '11999999999',
       barber: true,
     },
     {
       name: 'Kathya Tesourada',
       email: 'kathya@barbabrutal.app',
-      password: 'Senha123#',
+      password: await bcrypt.hash('Senha123#', 10),
       phone: '11999999999',
       barber: true,
     },
     {
       name: 'Sérgio Serrador',
       email: 'sergio@barbabrutal.app',
-      password: 'Senha123#',
+      password: await bcrypt.hash('Senha123#', 10),
       phone: '11999999999',
       barber: true,
     },
     {
       name: 'Rafa Raspa Tudo',
       email: 'rafa@barbabrutal.app',
-      password: 'Senha123#',
+      password: await bcrypt.hash('Senha123#', 10),
       phone: '11999999999',
       barber: true,
     },
     {
       name: 'Fernanda Faísca',
       email: 'fernanda@barbabrutal.app',
-      password: 'Senha123#',
+      password: await bcrypt.hash('Senha123#', 10),
       phone: '11999999999',
       barber: true,
     },
