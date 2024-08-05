@@ -93,7 +93,7 @@ export default function UserForm() {
 
             )}
             <div className="flex gap-5">
-              <button onClick={submit} className="button bg-green-600 flex-1">
+              <button onClick={submit} className="button bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold text-base md:text-lg py-2 px-4 rounded hover:from-green-600 hover:to-green-700 flex-1">
                 {mode === 'access' ? 'Entrar' : 'Cadastrar'}
               </button>
               <button
