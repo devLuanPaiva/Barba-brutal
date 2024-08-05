@@ -3,12 +3,7 @@ import Image from "next/image";
 
 export default function ItemServices(props: ItemServicesProps) {
   return (
-    <div
-      className={`
-                flex rounded-xl overflow-hidden bg-zinc-800 
-                ${props.onClick && "cursor-pointer"} select-none `}
-      onClick={() => props.onClick?.(props.service)}
-    >
+    <article className='flex rounded-xl overflow-hidden bg-zinc-800  select-none '>
       <Image
         src={props.service.imageURL}
         width={150}
@@ -17,10 +12,10 @@ export default function ItemServices(props: ItemServicesProps) {
         className="object-cover"
       />
       <div className="flex flex-col p-5 gap-2">
-        <span className="text-xl font-black">{props.service.name}</span>
-        <span className="text-xs text-zinc-400 flex-1">
+        <h2 className="text-xl font-black">{props.service.name}</h2>
+        <p className="text-xs text-zinc-400 flex-1 text-justify">
           {props.service.description}
-        </span>
+        </p>
         <span className="text-lg font-bold">
           {props.service.price.toLocaleString("pt-br", {
             style: "currency",
@@ -28,6 +23,6 @@ export default function ItemServices(props: ItemServicesProps) {
           })}
         </span>
       </div>
-    </div>
+    </article>
   );
 }

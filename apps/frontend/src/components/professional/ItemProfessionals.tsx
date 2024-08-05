@@ -10,25 +10,20 @@ import {
 
 export default function ItemProfessionals(props: ItemProfessionalsProps) {
   return (
-    <div
-      className="
-                flex flex-col items-center p-1
-                bg-zinc-800 rounded-lg
-            "
-    >
-      <div className="relative h-72 w-full">
+    <article className="flex flex-col items-center p-1 bg-zinc-800 rounded-lg">
+      <figure className="relative h-72 w-full">
         <Image
           src={props.professional.imageURL}
           fill
           alt={props.professional.name}
           className="object-cover object-top rounded-t-lg"
         />
-      </div>
-      <div className="flex flex-col p-4 gap-5">
-        <span className="text-2xl font-black">{props.professional.name}</span>
-        <span className="text-sm text-zinc-400">
+      </figure>
+      <section className="flex flex-col p-4 gap-5">
+        <h2 className="text-2xl font-black">{props.professional.name}</h2>
+        <p className="text-sm text-zinc-400">
           {props.professional.description}
-        </span>
+        </p>
 
         <div className="flex gap-3 flex-wrap">
           <Avaliation
@@ -43,7 +38,7 @@ export default function ItemProfessionals(props: ItemProfessionalsProps) {
           <IconBrandX stroke={1} />
           <IconBrandLinkedin stroke={1} />
         </div>
-      </div>
-    </div>
+      </section>
+    </article>
   );
 }

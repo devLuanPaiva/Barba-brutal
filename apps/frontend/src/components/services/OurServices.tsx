@@ -14,13 +14,13 @@ export default function OurServices() {
   }
 
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-16 container py-10">
       <Title
         tag="Serviços"
         primary="Do Classico ao Rock"
         secondary="Cabelo afiado, barba de lenhador e mãos de motoqueiro, tudo ao som de rock pesado!"
       />
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+      <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
         {services && Array.isArray(services) ? (
           services.map((service: Service) => (
             <ItemServices
@@ -32,7 +32,7 @@ export default function OurServices() {
         ) : (
           <p>Não tem serviços disponiveis</p>
         )}
-      </div>
+      </section>
     </div>
   );
 }

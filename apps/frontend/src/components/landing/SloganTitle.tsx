@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function SloganTitle() {
   return (
-    <div className="py-10 relative h-[700px]">
+    <section className="py-10 relative h-[700px]">
       <Image
         src="/banners/principal.webp"
         fill
@@ -14,7 +14,7 @@ export default function SloganTitle() {
       <div className="flex flex-col items-center absolute top-0 left-0 w-full h-full
                  bg-black/80 md:bg-transparent md:bg-gradient-to-r from-black/30 via-black/90 to-black/30">
         <TopMenu />
-        <div className="container flex-1 flex flex-col justify-center items-center gap-5 z-50">
+        <article className="container flex-1 flex flex-col justify-center items-center gap-5 z-50">
           <h1 className="flex flex-col items-center">
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-thin tracking-wider">
               Transformações
@@ -32,8 +32,8 @@ export default function SloganTitle() {
             text-base md:text-lg py-2 px-4 rounded hover:from-green-600 hover:to-green-700">
             Agendar Agora
           </Link>
-        </div>
+        </article>
       </div>
-    </div>
+    </section>
   );
 }
