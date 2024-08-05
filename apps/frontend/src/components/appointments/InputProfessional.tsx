@@ -16,9 +16,9 @@ function Option(props: Readonly<{
         width={150}
         height={150}
       />
-      <h3 className={`py-2 w-full h-full text-center text-xs ${props.selected ? "text-black bg-green-400 font-semibold" : "text-zinc-400 font-light bg-zinc-900 "}`}>
+      <p className={`py-2 w-full h-full text-center text-xs ${props.selected ? "text-black bg-green-400 font-semibold" : "text-zinc-400 font-light bg-zinc-900 "}`}>
         {props.professional.name.split(" ")[0]}
-      </h3>
+      </p>
     </button>
   );
 }
