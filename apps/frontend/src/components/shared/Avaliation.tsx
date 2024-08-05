@@ -5,7 +5,7 @@ import {
   IconStarHalfFilled,
 } from "@tabler/icons-react";
 
-export default function Avaliation(props: AvaliationProps) {
+export default function Avaliation(props: Readonly<AvaliationProps>) {
   const { value: avaliation, amount } = props;
 
   const stars = Array.from({ length: 5 }, (_, index) => {
@@ -20,9 +20,9 @@ export default function Avaliation(props: AvaliationProps) {
   });
 
   return (
-    <div className="flex items-end gap-2">
-      <div className="flex items-center gap-1 text-yellow-400">{stars}</div>
-      <div className="flex text-xs text-zinc-300">({amount})</div>
-    </div>
+    <section className="flex items-end gap-2">
+      <section className="flex items-center gap-1 text-yellow-400">{stars}</section>
+      <p className="flex text-xs text-zinc-300">({amount})</p>
+    </section>
   );
 }

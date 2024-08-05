@@ -8,7 +8,7 @@ import {
   IconBrandYoutube,
 } from "@tabler/icons-react";
 
-export default function ItemProfessionals(props: ItemProfessionalsProps) {
+export default function ItemProfessionals(props: Readonly<ItemProfessionalsProps>) {
   return (
     <article className="flex flex-col items-center p-1 bg-zinc-800 rounded-lg">
       <figure className="relative h-72 w-full">

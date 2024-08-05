@@ -1,6 +1,6 @@
 import TitleProps from "@/data/interfaces/TitleProps.interface";
 
-export default function Title(props: TitleProps) {
+export default function Title(props: Readonly<TitleProps>) {
   return (
     <header className="flex flex-col items-center gap-2">
       {props.tag && (

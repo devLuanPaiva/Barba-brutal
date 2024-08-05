@@ -1,7 +1,7 @@
 import ItemServicesProps from "@/data/interfaces/ItemServicesProps.interfaces";
 import Image from "next/image";
 
-export default function ItemServices(props: ItemServicesProps) {
+export default function ItemServices(props: Readonly<ItemServicesProps>) {
   return (
     <article className='flex rounded-xl overflow-hidden bg-zinc-800  select-none '>
       <Image
