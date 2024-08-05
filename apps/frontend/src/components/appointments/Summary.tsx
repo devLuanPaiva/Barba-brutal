@@ -3,6 +3,7 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useAppointment from "@/data/hooks/useAppointments";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 export default function Summary() {
   const [loading, setLoading] = useState(false);
   const { date, professional, services, totalPrice, totalDuration, schedule } =
@@ -62,8 +63,8 @@ export default function Summary() {
           <span className="flex gap-2 flex-wrap text-sm text-white">
             {services.length
               ? services.map((service: { name: string }, i: number) =>
-                  renderService(service.name, i + 1),
-                )
+                renderService(service.name, i + 1),
+              )
               : "Não selecionado"}
           </span>
         </div>
@@ -94,17 +95,35 @@ export default function Summary() {
         </span>
       </div>
       <div className="p-5">
-        <button
-          className={`flex justify-center items-center text-sm font-semibold ${canFinalize() ? "bg-yellow-400" : "bg-zinc-600"} text-zinc-900 w-full py-3 rounded-lg`}
-          disabled={!canFinalize()}
-          onClick={finalizeAppointment}
-        >
-          {loading && date ? (
-            <Loader2 className="animate-spin" size={32} />
-          ) : (
-            "Finalizar Agendamento"
-          )}
-        </button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <button
+              className={`flex justify-center items-center text-sm font-semibold ${canFinalize() ? "bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold text-base md:text-lg py-2 px-4 hover:from-yellow-500 hover:to-yellow-600" : "bg-zinc-600"} text-zinc-900 w-full py-3 rounded`}
+              disabled={!canFinalize()}
+
+            >
+              {loading && date ? (
+                <Loader2 className="animate-spin" size={32} />
+              ) : (
+                "Finalizar Agendamento"
+              )}
+            </button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Confirmar Agendamento</AlertDialogTitle>
+              <AlertDialogDescription>Tem certeza de que deseja finalizar o agendamento?</AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel className="button rounded">Cancelar</AlertDialogCancel>
+              <AlertDialogAction onClick={finalizeAppointment}
+                className="button rounded bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold text-base md:text-lg
+               py-2 px-4 hover:from-green-600 hover:to-green-700">
+                Confirmar
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );

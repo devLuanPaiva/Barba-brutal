@@ -1,5 +1,6 @@
 import { Appointment, UtilsDate, UtilsSchedule } from "@barba/core";
 import { IconCalendar, IconTrash } from "@tabler/icons-react";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 
 export interface ScheduleProfessionalItemProps {
     appointment: Appointment
@@ -25,11 +26,31 @@ export default function ScheduleProfessionalItem(props: ScheduleProfessionalItem
                     })}
                 </span>
             </div>
-            <div>
-                <button className="button bg-red-500" onClick={() => props.delete(appointment.id)}>
-                    <IconTrash size={24} stroke={1.5} />
-                </button>
-            </div>
+            <AlertDialog>
+                <AlertDialogTrigger>
+                    <button className="button bg-gradient-to-r from-red-500 to-red-600
+                            text-white font-semibold text-base md:text-lg
+                            py-2 px-4 hover:from-red-600 hover:to-red-700" >
+                        <IconTrash size={24} stroke={1.5} />
+                    </button>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Excluir Agendamento</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Tem certeza que deseja excluir este agendamento?
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel className="button rounded" onClick={() => { }}>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction className="button rounded bg-gradient-to-r from-red-500 to-red-600
+                            text-white font-semibold text-base md:text-lg
+                            py-2 px-4 hover:from-red-600 hover:to-red-700" onClick={() => props.delete(appointment.id)}>Excluir</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+
+                </AlertDialogTrigger>
+
+            </AlertDialog>
         </div>
     )
 }
