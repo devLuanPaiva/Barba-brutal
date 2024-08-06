@@ -3,14 +3,8 @@ import { User } from "@barba/core";
 import { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import cookie from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
+import { SectionContextProps } from "../interfaces/BaseContextProps.interface";
 
-interface SectionContextProps {
-    loading: boolean;
-    token: string | null;
-    user: User | null;
-    createSection: (jwt: string) => void
-    clearSection: () => void
-}
 const SectionContext = createContext<SectionContextProps>({} as any)
 
 export function SectionProvider(props: any) {
