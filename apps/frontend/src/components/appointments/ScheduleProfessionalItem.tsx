@@ -9,22 +9,22 @@ export interface ScheduleProfessionalItemProps {
 export default function ScheduleProfessionalItem(props: Readonly<ScheduleProfessionalItemProps>) {
     const { appointment } = props;
     return (
-        <div className="flex item-center gap-6 bg-zinc-800 rounded-md p-7">
+        <li className="flex item-center gap-6 bg-zinc-800 rounded-md p-7">
             <IconCalendar size={60} stroke={1} />
             <div className="flex-1 flex flex-col">
-                <span className="text-xl">{appointment.user.name}</span>
-                <span className="text-zinc-400 text sm">{UtilsDate.formatDateAndTime(new Date(appointment.date))}</span>
+                <h3 className="text-xl">{appointment.user.name}</h3>
+                <p className="text-zinc-400 text sm">{UtilsDate.formatDateAndTime(new Date(appointment.date))}</p>
             </div>
             <div className="flex flex-col items-center">
                 <span className="text-xl font-black">
                     {UtilsSchedule.durationTotal(appointment.services)}
                 </span>
-                <span className="text-zinc-400">
+                <p className="text-zinc-400">
                     {appointment.services.reduce((acc, service) => acc + service.price, 0).toLocaleString("pt-br", {
                         style: "currency",
                         currency: "BRL",
                     })}
-                </span>
+                </p>
             </div>
             <AlertDialog>
                 <AlertDialogTrigger>
@@ -51,6 +51,6 @@ export default function ScheduleProfessionalItem(props: Readonly<ScheduleProfess
                 </AlertDialogTrigger>
 
             </AlertDialog>
-        </div>
+        </li>
     )
 }

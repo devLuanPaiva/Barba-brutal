@@ -9,12 +9,12 @@ export default function PageSchedule() {
     const { date, appointments, deleteAppointment, changeDate } = useProfessionalSchedule()
 
     return (
-        <div className="flex flex-col bg-zinc-900">
+        <section className="flex flex-col bg-zinc-900">
             <Header title="Minha Agenda" description="Veja e gerencie seus agendamentos." />
-            <div className="container flex flex-col gap-10 py-16">
-                <InputDay date={date} changedDate={changeDate} />
+            <section className="container flex flex-col gap-10 py-16">
+                <InputDay date={date} changedValue={changeDate} />
                 {appointments.length > 0 ? (
-                    <div className="flex flex-col gap-4">
+                    <ul className="flex flex-col gap-4 ">
                         {appointments.map((appointment) => (
                             <ScheduleProfessionalItem
                                 key={appointment.id}
@@ -22,16 +22,16 @@ export default function PageSchedule() {
                                 delete={deleteAppointment}
                             />
                         ))}
-                    </div>
+                    </ul>
                 ) : (
                     <div className="flex flex-col items-center">
                         <IconCalendarCancel size={50} stroke={0.5} className="text text-zinc-400" />
-                        <span className="text-xl text-zinc-500 font-extralight w-64 text-center">
+                        <p className="text-xl text-zinc-500 font-extralight w-64 text-center">
                             Nenhum agendamento para esta data.
-                        </span>
+                        </p>
                     </div>
                 )}
-            </div>
-        </div>
+            </section>
+        </section>
     )
 }
