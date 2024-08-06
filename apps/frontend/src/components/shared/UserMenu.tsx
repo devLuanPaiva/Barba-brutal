@@ -12,7 +12,7 @@ import useUser from "@/data/hooks/useUser";
 import UserMenuProps from "@/data/interfaces/UserMenuProps.interface";
 import { useRouter } from "next/navigation";
 
-export default function UserMenu(props: UserMenuProps) {
+export default function UserMenu(props: Readonly<UserMenuProps>) {
   const { user, logout } = useUser()
   const router = useRouter()
   return props.user ? (

@@ -1,4 +1,4 @@
-import ContainerBgProps from "@/data/interfaces/ContainerBgProps.interface";
+import { ContainerBgProps } from "@/data/interfaces/BasePageProps.interface";
 import Image from "next/image";
 
 export default function ContainerBackground(props: Readonly<ContainerBgProps>) {
@@ -11,7 +11,7 @@ export default function ContainerBackground(props: Readonly<ContainerBgProps>) {
         className="object-cover -z-30"
       />
       <section className="bg-black/90 sm:bg-transparent sm:bg-gradient-to-r from-black/80 via-black/95 to-black/80">
-       {props.children}
+        {props.children}
       </section>
     </section>
   );
