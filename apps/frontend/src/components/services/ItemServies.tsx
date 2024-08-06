@@ -1,23 +1,23 @@
-import ItemServicesProps from "@/data/interfaces/ItemServicesProps.interfaces";
+import {ServicesItemProps} from "@/data/interfaces/BaseItemProps.interface";
 import Image from "next/image";
 
-export default function ItemServices(props: Readonly<ItemServicesProps>) {
+export default function ItemServices(props: Readonly<ServicesItemProps>) {
   return (
     <article className='flex rounded-xl overflow-hidden bg-zinc-800  select-none '>
       <Image
-        src={props.service.imageURL}
+        src={props.item.imageURL}
         width={150}
         height={150}
-        alt={props.service.name}
+        alt={props.item.name}
         className="object-cover"
       />
       <div className="flex flex-col p-5 gap-2">
-        <h2 className="text-xl font-black">{props.service.name}</h2>
+        <h2 className="text-xl font-black">{props.item.name}</h2>
         <p className="text-xs text-zinc-400 flex-1 text-justify">
-          {props.service.description}
+          {props.item.description}
         </p>
         <span className="text-lg font-bold">
-          {props.service.price.toLocaleString("pt-br", {
+          {props.item.price.toLocaleString("pt-br", {
             style: "currency",
             currency: "BRL",
           })}

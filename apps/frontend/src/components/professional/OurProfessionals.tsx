@@ -18,7 +18,7 @@ export default function OurProfessionals() {
           professional.map((professional: Professional) => (
             <ItemProfessionals
               key={professional.id}
-              professional={professional}
+              item={professional}
             />
           ))
         ) : (

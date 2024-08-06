@@ -25,7 +25,7 @@ export default function OurServices() {
           services.map((service: Service) => (
             <ItemServices
               key={service.id}
-              service={service}
+              item={service}
               onClick={startAppointments}
             />
           ))

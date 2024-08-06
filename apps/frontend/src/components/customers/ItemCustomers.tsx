@@ -1,6 +1,6 @@
 import ItemCustomersProps from "@/data/interfaces/ItemCustomersProps.interface";
 
-export default function ItemCustomers(props: ItemCustomersProps) {
+export default function ItemCustomers(props: Readonly<ItemCustomersProps>) {
   return (
     <>
       <h2 className="font-bold text-4xl text-white">{props.name}</h2>
