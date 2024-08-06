@@ -6,7 +6,7 @@ export interface ScheduleProfessionalItemProps {
     appointment: Appointment
     delete: (id: number) => void
 }
-export default function ScheduleProfessionalItem(props: ScheduleProfessionalItemProps) {
+export default function ScheduleProfessionalItem(props: Readonly<ScheduleProfessionalItemProps>) {
     const { appointment } = props;
     return (
         <div className="flex item-center gap-6 bg-zinc-800 rounded-md p-7">

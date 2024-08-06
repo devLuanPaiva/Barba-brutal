@@ -55,12 +55,13 @@ export default function PageAppointment() {
         >
           <ProfessionalInput
             professional={professional}
-            professionalChanged={professionalChanged}
+            changedValue={professionalChanged}
+            onChange={professionalChanged}
           />
-          <ServicesInput services={services} changedService={servicesChanged} />
+          <ServicesInput services={services} changedValue={servicesChanged} onChange={servicesChanged} />
           <InputDate
             date={date}
-            dateChanged={dateChanged}
+            changedValue={dateChanged}
             amountSlots={numberOfSlots()}
           />
         </Steps>

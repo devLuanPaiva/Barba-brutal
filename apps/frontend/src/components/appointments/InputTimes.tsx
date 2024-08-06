@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { IconX } from "@tabler/icons-react";
 import { UtilsDate, UtilsSchedule } from "@barba/core";
 import useAppointment from "@/data/hooks/useAppointments";
-import TimesInputProps from "@/data/interfaces/TimesInputProps.interface";
+import { TimesInputProps } from "@/data/interfaces/BaseInputProps.interface";
 
 export default function InputTimes(props: Readonly<TimesInputProps>) {
   const [hoveredTime, setHoveredTime] = useState<string | null>(null);
@@ -60,7 +60,7 @@ export default function InputTimes(props: Readonly<TimesInputProps>) {
         onClick={() => {
           if (notSelectable) return;
           if (occupied || blockedPeriod) return;
-          props.dateChanged(UtilsDate.applySchedule(props.date, time));
+          props.changedValue(UtilsDate.applySchedule(props.date, time));
         }}
       >
         <span className={cn("text-sm text-zinc-400", {

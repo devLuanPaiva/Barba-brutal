@@ -1,16 +1,16 @@
-import InputDateProps from "@/data/interfaces/InputDateProps.interface";
+import { DateInputProps } from "@/data/interfaces/BaseInputProps.interface";
 import InputDay from "./InputDay";
 import InputTimes from "./InputTimes";
 
-export default function InputDate(props: Readonly<InputDateProps>) {
-  const { amountSlots, date, dateChanged } = props;
+export default function InputDate(props: Readonly<DateInputProps>) {
+  const { amountSlots, date, changedValue } = props;
   return (
     <section className="flex flex-col gap-10">
-      <InputDay date={date} changedDate={dateChanged} />
+      <InputDay date={date} changedValue={changedValue} />
       <InputTimes
         date={date}
         slotsQuantity={amountSlots}
-        dateChanged={dateChanged}
+        changedValue={changedValue}
       />
     </section>
   );

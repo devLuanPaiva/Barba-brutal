@@ -1,5 +1,5 @@
 import { useServices } from "@barba/ui";
-import InputServicesProps from "@/data/interfaces/InputServicesProps.interface";
+import {ServicesInputProps} from "@/data/interfaces/BaseInputProps.interface";
 import { Service } from "@barba/core";
 import Image from "next/image";
 
@@ -24,13 +24,13 @@ function Option(props: Readonly<{
   );
 }
 
-export default function ServicesInput(props: Readonly<InputServicesProps>) {
-  const { changedService } = props;
+export default function ServicesInput(props: Readonly<ServicesInputProps>) {
+  const { changedValue } = props;
   const { services: allServices } = useServices();
 
   function toggleServiceSelection(service: Service) {
     const selectedService = props.services.find((s) => s.id === service.id);
-    changedService(
+    changedValue(
       selectedService
         ? props.services.filter((s) => s.id !== service.id)
         : [...props.services, service],

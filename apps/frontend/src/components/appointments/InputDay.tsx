@@ -1,4 +1,4 @@
-import DayInputProps from "@/data/interfaces/DayInputProps.interface";
+import { DayInputProps } from "@/data/interfaces/BaseInputProps.interface";
 import { UtilsDate } from "@barba/core";
 
 export default function InputDay(props: Readonly<DayInputProps>) {
@@ -10,7 +10,7 @@ export default function InputDay(props: Readonly<DayInputProps>) {
     return (
       <button
         key={date.toISOString()}
-        onClick={() => props.changedDate(date)}
+        onClick={() => props.changedValue(date)}
         className={`flex-1 flex flex-col items-center gap-2 py-4 cursor-pointer ${selected ? "bg-yellow-400 text-black" : "text-zinc-400"}`}>
         <p className="flex items-center gap-1">
           <span className="text-2xl font-black">{date.getDate()}</span>

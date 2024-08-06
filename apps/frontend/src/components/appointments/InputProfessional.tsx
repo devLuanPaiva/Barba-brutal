@@ -1,5 +1,5 @@
 import { useProfessionals } from "@barba/ui";
-import ProfessionalInputProps from "@/data/interfaces/ProfessionalInputProps.interface";
+import { ProfessionalInputProps } from "@/data/interfaces/BaseInputProps.interface";
 import { Professional } from "@barba/core";
 import Image from "next/image";
 
@@ -36,7 +36,7 @@ export default function ProfessionalInput(props: Readonly<ProfessionalInputProps
             <Option
               key={professional.id}
               professional={professional}
-              onClick={props.professionalChanged}
+              onClick={props.onChange}
               selected={professional.id === props.professional?.id}
             />
           ))
