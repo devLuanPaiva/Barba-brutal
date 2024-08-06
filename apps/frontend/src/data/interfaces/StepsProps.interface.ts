@@ -1,4 +1,4 @@
-export default interface StepsProps {
+export interface StepsProps {
   labels: string[];
   children: any;
   allowsNextStep: boolean;
