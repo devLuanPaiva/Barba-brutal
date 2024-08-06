@@ -1,4 +1,4 @@
-import StepsProps from "@/data/interfaces/StepsProps.interface";
+import { StepsProps } from "@/data/interfaces";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { useState } from "react";
 

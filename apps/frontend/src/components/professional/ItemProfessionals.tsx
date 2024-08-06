@@ -1,4 +1,3 @@
-import { ProfessionalItemProps } from "@/data/interfaces/BaseItemProps.interface";
 import Image from "next/image";
 import Avaliation from "../shared/Avaliation";
 import {
@@ -7,6 +6,7 @@ import {
   IconBrandX,
   IconBrandYoutube,
 } from "@tabler/icons-react";
+import { ProfessionalItemProps } from "@/data/interfaces";
 
 export default function ItemProfessionals(props: Readonly<ProfessionalItemProps>) {
   return (

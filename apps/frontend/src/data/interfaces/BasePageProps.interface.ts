@@ -1,11 +1,10 @@
 import React from "react";
 
-interface BasePageProps {
+export interface BasePageProps {
   children: React.ReactNode;
 }
 
-interface ContainerBgProps extends BasePageProps {
+export interface ContainerBgProps extends BasePageProps {
   image: string;
 }
 
-export type { BasePageProps, ContainerBgProps };

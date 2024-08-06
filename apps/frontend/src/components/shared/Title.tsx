@@ -1,4 +1,4 @@
-import TitleProps from "@/data/interfaces/TitleProps.interface";
+import { TitleProps } from "@/data/interfaces";
 
 export default function Title(props: Readonly<TitleProps>) {
   return (

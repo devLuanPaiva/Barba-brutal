@@ -3,7 +3,11 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useAppointment from "@/data/hooks/useAppointments";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
+  AlertDialogTitle, AlertDialogTrigger
+} from "../ui/alert-dialog";
 export default function Summary() {
   const [loading, setLoading] = useState(false);
   const { date, professional, services, totalPrice, totalDuration, schedule } =

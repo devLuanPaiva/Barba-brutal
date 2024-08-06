@@ -3,7 +3,7 @@ import { User } from "@barba/core";
 import { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import cookie from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
-import { SectionContextProps } from "../interfaces/BaseContextProps.interface";
+import { SectionContextProps } from "../interfaces";
 
 const SectionContext = createContext<SectionContextProps>({} as any)
 

@@ -1,4 +1,4 @@
-import { DateInputProps } from "@/data/interfaces/BaseInputProps.interface";
+import { DateInputProps } from "@/data/interfaces";
 import InputDay from "./InputDay";
 import InputTimes from "./InputTimes";
 

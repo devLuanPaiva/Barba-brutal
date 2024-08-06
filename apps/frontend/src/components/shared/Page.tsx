@@ -1,4 +1,4 @@
-import { BasePageProps } from "@/data/interfaces/BasePageProps.interface";
+import { BasePageProps } from "@/data/interfaces";
 import Footer from "./Footer";
 
 export default function Page(props: Readonly<BasePageProps>) {

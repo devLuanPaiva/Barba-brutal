@@ -1,7 +1,7 @@
 import { useServices } from "@barba/ui";
-import {ServicesInputProps} from "@/data/interfaces/BaseInputProps.interface";
 import { Service } from "@barba/core";
 import Image from "next/image";
+import { ServicesInputProps } from "@/data/interfaces";
 
 function Option(props: Readonly<{
   service: Service;

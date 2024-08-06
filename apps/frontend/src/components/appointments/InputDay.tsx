@@ -1,4 +1,4 @@
-import { DayInputProps } from "@/data/interfaces/BaseInputProps.interface";
+import { DayInputProps } from "@/data/interfaces";
 import { UtilsDate } from "@barba/core";
 
 export default function InputDay(props: Readonly<DayInputProps>) {

@@ -1,4 +1,4 @@
-import { ContainerBgProps } from "@/data/interfaces/BasePageProps.interface";
+import { ContainerBgProps } from "@/data/interfaces";
 import Image from "next/image";
 
 export default function ContainerBackground(props: Readonly<ContainerBgProps>) {

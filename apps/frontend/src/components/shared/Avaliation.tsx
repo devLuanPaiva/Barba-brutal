@@ -1,4 +1,4 @@
-import AvaliationProps from "@/data/interfaces/AvaliationProps.interface";
+import { AvaliationProps } from "@/data/interfaces";
 import {
   IconStar,
   IconStarFilled,

@@ -1,7 +1,7 @@
 import { useProfessionals } from "@barba/ui";
-import { ProfessionalInputProps } from "@/data/interfaces/BaseInputProps.interface";
 import { Professional } from "@barba/core";
 import Image from "next/image";
+import { ProfessionalInputProps } from "@/data/interfaces";
 
 function Option(props: Readonly<{
   professional: Professional;

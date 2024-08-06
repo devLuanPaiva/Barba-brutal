@@ -1,9 +1,9 @@
 "use client";
-import { AppointmentContextProps } from "../interfaces/BaseContextProps.interface";
 import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { Professional, Service, UtilsSchedule, UtilsDate } from "@barba/core";
 import useUser from "../hooks/useUser";
 import useAPI from "../hooks/useAPI";
+import { AppointmentContextProps } from "../interfaces";
 
 export const AppointmentContext = createContext({} as AppointmentContextProps);
 export function AppointmentProvider({

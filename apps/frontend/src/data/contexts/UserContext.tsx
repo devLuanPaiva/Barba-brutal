@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { User } from "@barba/core";
 import useSection from "../hooks/useSection";
 import useAPI from "../hooks/useAPI";
-import { UserContextProps } from "../interfaces/BaseContextProps.interface";
+import { UserContextProps } from "../interfaces";
 
 const UserContext = createContext<UserContextProps>({} as any);
 

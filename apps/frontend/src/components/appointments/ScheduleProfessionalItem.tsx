@@ -1,6 +1,10 @@
 import { Appointment, UtilsDate, UtilsSchedule } from "@barba/core";
 import { IconCalendar, IconTrash } from "@tabler/icons-react";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
+import {
+    AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+    AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
+    AlertDialogTitle, AlertDialogTrigger
+} from "../ui/alert-dialog";
 
 export interface ScheduleProfessionalItemProps {
     appointment: Appointment

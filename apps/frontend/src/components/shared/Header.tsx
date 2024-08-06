@@ -1,6 +1,6 @@
-import HeaderProps from "@/data/interfaces/HeaderProps.interface";
 import Image from "next/image";
 import TopMenu from "./TopMenu";
+import { HeaderProps } from "@/data/interfaces";
 
 export default function Header(props: Readonly<HeaderProps>) {
   return (

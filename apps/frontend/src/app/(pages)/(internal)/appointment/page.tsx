@@ -1,5 +1,4 @@
 "use client";
-
 import InputDate from "@/components/appointments/InputDate";
 import ProfessionalInput from "@/components/appointments/InputProfessional";
 import ServicesInput from "@/components/appointments/InputServices";
