@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useCallback, useEffect, useState } from "react";
 import useAPI from "./useAPI";
 import useUser from "./useUser";
@@ -6,7 +6,7 @@ import { Appointment } from "@barba/core";
 
 export default function useUserSchedule() {
   const { user } = useUser();
-  const { httpGET } = useAPI();
+  const { httpGET, httpDELETE } = useAPI();
   const [date, setDate] = useState<Date>(new Date());
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const loadAppointments = useCallback(async () => {
@@ -22,5 +22,10 @@ export default function useUserSchedule() {
     loadAppointments();
   }, [loadAppointments]);
 
-  return { date, changedDate: setDate, appointments };
+  const deleteAppointment = async (id: number) => {
+    await httpDELETE(`appointment/${id}`);
+    setAppointments(appointments.filter((a) => a.id !== id));
+  };
+
+  return { date, changedDate: setDate, appointments, deleteAppointment };
 }
