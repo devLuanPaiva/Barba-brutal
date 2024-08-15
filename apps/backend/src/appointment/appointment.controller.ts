@@ -48,8 +48,8 @@ export class AppointmentController {
 
   @Delete(':id')
   async delete(@Param('id') id: number, @UserLogged() userLogged: User) {
-    if (!userLogged.barber) {
-      throw new HttpException('Usuário não é barbeiro', 401);
+    if (!userLogged) {
+      throw new HttpException('Usuário não está logado', 401);
     }
     await this.repo.delete(+id);
   }

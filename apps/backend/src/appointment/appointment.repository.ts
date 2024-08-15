@@ -25,7 +25,7 @@ export class AppointmentRepository implements RepositoryAppointment {
     }
   }
   async searchEmail(email: string, dateParam: Date): Promise<Appointment[]> {
-     const year = dateParam.getFullYear();
+    const year = dateParam.getFullYear();
     const month = dateParam.getUTCMonth();
     const day = dateParam.getUTCDate();
 
