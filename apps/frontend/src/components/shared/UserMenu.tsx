@@ -40,9 +40,15 @@ export default function UserMenu(props: Readonly<UserMenuProps>) {
         <DropdownMenuSeparator />
         {user?.barber && (
           <DropdownMenuItem onClick={() => router.push('/schedule')}>
-            Minha Agenda
+            Minha agenda
           </DropdownMenuItem>
         )}
+        {!user?.barber && (
+          <DropdownMenuItem onClick={() => router.push('/myAppointments')}>
+            Meus agendamentos
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuItem onClick={() => router.push('/appointment')}>Agendar agora</DropdownMenuItem>
         <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
