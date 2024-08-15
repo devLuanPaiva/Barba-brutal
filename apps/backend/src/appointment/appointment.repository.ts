@@ -24,14 +24,21 @@ export class AppointmentRepository implements RepositoryAppointment {
       throw error; // Re-lança o erro para ser capturado pelo controlador
     }
   }
-  async searchEmail(email: string): Promise<Appointment[]> {
+  async searchEmail(email: string, dateParam: Date): Promise<Appointment[]> {
+     const year = dateParam.getFullYear();
+    const month = dateParam.getUTCMonth();
+    const day = dateParam.getUTCDate();
+
+    const startDay = new Date(year, month, day, 0, 0, 0);
+    const endDay = new Date(year, month, day, 23, 59, 59);
     return this.prismaService.appointment.findMany({
       where: {
         user: {
           email: email,
         },
         date: {
-          gte: new Date(),
+          gte: startDay,
+          lte: endDay,
         },
       },
       include: {
@@ -40,7 +47,7 @@ export class AppointmentRepository implements RepositoryAppointment {
         user: true,
       },
       orderBy: {
-        date: 'desc',
+        date: 'asc',
       },
     });
   }
