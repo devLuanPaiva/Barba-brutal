@@ -22,9 +22,9 @@ export class AppointmentController {
     return this.repo.create(appointment);
   }
 
-  @Get(':email')
-  searchEmail(@Param('email') email: string) {
-    return this.repo.searchEmail(email);
+  @Get('/:email/:date')
+  searchEmail(@Param('email') email: string, @Param('date') dateParam: string) {
+    return this.repo.searchEmail(email, new Date(dateParam));
   }
   @Get('occupancy/:professional/:date')
   getOccupancyByProfessionalAndDate(
