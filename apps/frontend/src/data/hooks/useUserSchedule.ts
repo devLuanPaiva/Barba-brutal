@@ -23,7 +23,7 @@ export default function useUserSchedule() {
   }, [loadAppointments]);
 
   const deleteAppointment = async (id: number) => {
-    await httpDELETE(`appointment/${id}`);
+    await httpDELETE(`appointment/delete/${id}`);
     setAppointments(appointments.filter((a) => a.id !== id));
   };
 

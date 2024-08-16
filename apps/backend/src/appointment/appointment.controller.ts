@@ -47,7 +47,7 @@ export class AppointmentController {
     );
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   async delete(@Param('id') id: number, @UserLogged() userLogged: User) {
     if (!userLogged) {
       throw new HttpException('Usuário não está logado', 401);

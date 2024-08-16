@@ -25,7 +25,7 @@ export default function useProfessionalSchedule() {
   }, [loadAppointments]);
 
   async function deleteAppointment(id: number) {
-    await httpDELETE(`appointment/${id}`);
+    await httpDELETE(`appointment/delete/${id}`);
     setAppointments(appointments.filter((a) => a.id !== id));
   }
 
