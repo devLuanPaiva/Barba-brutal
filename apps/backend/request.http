@@ -16,8 +16,8 @@ POST http://localhost:3001/user/login
 Content-Type: application/json
 
 {
-    "email": "fernanda@barbabrutal.app",
-    "password": "Senha123#"
+    "email": "luanzin@gmail.com",
+    "password": "Test@123"
 }
 
 ###
@@ -31,4 +31,12 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsIm5hbWUi
     "professional": {"id": 1},
     "service": [{"id": 1}]
 }
+###
+DELETE  http://localhost:3001/appointment/19
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsIm5hbWUiOiJMdWFuIiwiZW1haWwiOiJsdWFuemluQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYmFyYmVyIjpmYWxzZSwiaWF0IjoxNzIzODMxMjYzLCJleHAiOjE3MjUxMjcyNjN9.I1QwLUc64CpsEj1u7cjKgguA7KkrdKuK1QtFtwyZYY0
 
+###
+GET  http://localhost:3001/appointment/18
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsIm5hbWUiOiJMdWFuIiwiZW1haWwiOiJsdWFuemluQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYmFyYmVyIjpmYWxzZSwiaWF0IjoxNzIzODMxMjYzLCJleHAiOjE3MjUxMjcyNjN9.I1QwLUc64CpsEj1u7cjKgguA7KkrdKuK1QtFtwyZYY0
