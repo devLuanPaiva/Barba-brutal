@@ -66,4 +66,9 @@ export class AppointmentController {
     }
     await this.repo.update(id, appointment);
   }
+
+  @Get(':id')
+  view(@Param('id') id: number) {
+    return this.repo.view(+id);
+  }
 }

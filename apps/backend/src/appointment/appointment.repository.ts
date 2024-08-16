@@ -105,4 +105,10 @@ export class AppointmentRepository implements RepositoryAppointment {
       throw error;
     }
   }
+  async view(id: number): Promise<Appointment> {
+    return this.prismaService.appointment.findUnique({
+      where: { id: id },
+      include: { services: true, user: true, professional: true },
+    });
+  }
 }
