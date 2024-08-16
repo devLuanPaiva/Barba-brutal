@@ -8,4 +8,5 @@ export default interface RepositoryAppointment {
     date: Date,
   ): Promise<Appointment[]>;
   delete(id: number): Promise<void>;
+  update(id: number, appointment: Partial<Appointment>): Promise<void>;
 }

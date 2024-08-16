@@ -81,4 +81,28 @@ export class AppointmentRepository implements RepositoryAppointment {
       include: { services: true },
     });
   }
+
+  async update(id: number, appointment: Partial<Appointment>): Promise<void> {
+    try {
+      await this.prismaService.appointment.update({
+        where: { id: id },
+        data: {
+          date: appointment.date,
+          professional: appointment.professional
+            ? { connect: { id: appointment.professional.id } }
+            : undefined,
+          services: appointment.services
+            ? {
+                set: appointment.services.map((service) => ({
+                  id: service.id,
+                })),
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      console.error('Error updating appointment:', error);
+      throw error;
+    }
+  }
 }

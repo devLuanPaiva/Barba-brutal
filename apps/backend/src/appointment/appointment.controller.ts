@@ -6,6 +6,7 @@ import {
   HttpException,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { AppointmentRepository } from './appointment.repository';
 import { Appointment, GetOccupiedSlots, User } from '@barba/core';
@@ -52,5 +53,17 @@ export class AppointmentController {
       throw new HttpException('Usuário não está logado', 401);
     }
     await this.repo.delete(+id);
+  }
+
+  @Put('update/:id')
+  async update(
+    @Param('id') id: number,
+    @Body() appointment: Partial<Appointment>,
+    @UserLogged() userLogged: User,
+  ) {
+    if (!userLogged) {
+      throw new HttpException('Usuário não está logado', 401);
+    }
+    await this.repo.update(id, appointment);
   }
 }
