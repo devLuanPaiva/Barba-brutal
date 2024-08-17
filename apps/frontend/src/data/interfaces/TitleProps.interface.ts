@@ -1,4 +1,4 @@
-export default interface TitleProps {
+export interface TitleProps {
   tag?: string;
   primary: string;
   secondary: string;

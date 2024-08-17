@@ -9,7 +9,7 @@ export class UserMidddleware implements NestMiddleware {
   constructor(private readonly repo: UserRepository) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
-    const token = req.headers['authorization']?.replace('Bearer', '');
+    const token = req.headers['authorization']?.replace('Bearer ', '');
     if (!token) {
       throw new HttpException('Token não informado', 401);
     }

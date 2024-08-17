@@ -24,14 +24,21 @@ export class AppointmentRepository implements RepositoryAppointment {
       throw error; // Re-lança o erro para ser capturado pelo controlador
     }
   }
-  async searchEmail(email: string): Promise<Appointment[]> {
+  async searchEmail(email: string, dateParam: Date): Promise<Appointment[]> {
+    const year = dateParam.getFullYear();
+    const month = dateParam.getUTCMonth();
+    const day = dateParam.getUTCDate();
+
+    const startDay = new Date(year, month, day, 0, 0, 0);
+    const endDay = new Date(year, month, day, 23, 59, 59);
     return this.prismaService.appointment.findMany({
       where: {
         user: {
           email: email,
         },
         date: {
-          gte: new Date(),
+          gte: startDay,
+          lte: endDay,
         },
       },
       include: {
@@ -40,7 +47,7 @@ export class AppointmentRepository implements RepositoryAppointment {
         user: true,
       },
       orderBy: {
-        date: 'desc',
+        date: 'asc',
       },
     });
   }
@@ -66,5 +73,42 @@ export class AppointmentRepository implements RepositoryAppointment {
       include: { services: true, user: true },
     });
     return result;
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.prismaService.appointment.delete({
+      where: { id: id },
+      include: { services: true },
+    });
+  }
+
+  async update(id: number, appointment: Partial<Appointment>): Promise<void> {
+    try {
+      await this.prismaService.appointment.update({
+        where: { id: id },
+        data: {
+          date: appointment.date,
+          professional: appointment.professional
+            ? { connect: { id: appointment.professional.id } }
+            : undefined,
+          services: appointment.services
+            ? {
+                set: appointment.services.map((service) => ({
+                  id: service.id,
+                })),
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      console.error('Error updating appointment:', error);
+      throw error;
+    }
+  }
+  async view(id: number): Promise<Appointment> {
+    return this.prismaService.appointment.findUnique({
+      where: { id: id },
+      include: { services: true, user: true, professional: true },
+    });
   }
 }

@@ -11,7 +11,7 @@ export default class UserLogin {
     const user = await this.repo.searchEmail(email);
     if (!user) throw new Error("Usuário não encontrado");
     const passwordMatch = await this.crypt.compare(password, user.password);
-    if (!passwordMatch) throw new Error("Senha inválida");
+    if (!passwordMatch) throw new Error("Credenciais inválidas");
 
     delete user.password;
     return user;
