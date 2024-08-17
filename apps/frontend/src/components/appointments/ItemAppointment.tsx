@@ -2,8 +2,10 @@ import { AppointmentItemProps } from "@/data/interfaces";
 import { UtilsDate, UtilsSchedule } from "@barba/core";
 import { IconCalendar, IconPencil, IconTrash } from "@tabler/icons-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 export default function ItemAppointment(props: Readonly<AppointmentItemProps>) {
+    const router = useRouter()
     const addTotalServices = () => {
         return props.item.services.reduce((acc, service) => acc + service.price, 0)
     }
@@ -31,7 +33,7 @@ export default function ItemAppointment(props: Readonly<AppointmentItemProps>) {
                     })}
                 </span>
             </section>
-            <section className="flex justify-between gap-1">
+            <section className="flex flex-col gap-1">
                 <AlertDialog>
                     <AlertDialogTrigger>
                         <button className="button bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold text-base md:text-lg py-2 px-4 hover:from-red-600 hover:to-red-700" >
@@ -58,7 +60,7 @@ export default function ItemAppointment(props: Readonly<AppointmentItemProps>) {
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
-                {/* <AlertDialog>
+                <AlertDialog>
                     <AlertDialogTrigger>
                         <button className="button bg-gradient-to-r from-zinc-500 to-zinc-600 text-white font-semibold text-base md:text-lg py-2 px-4 hover:from-zinc-600 hover:to-zinc-700" >
                             <IconPencil size={24} stroke={1.5} />
@@ -74,12 +76,12 @@ export default function ItemAppointment(props: Readonly<AppointmentItemProps>) {
                         <AlertDialogFooter>
                             <AlertDialogCancel className="button rounded">Cancelar</AlertDialogCancel>
                             <AlertDialogAction className="button rounded bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold text-base md:text-lg py-2 px-4 hover:from-blue-600 hover:to-blue-700"
-                                onClick={() => props.edit(props.item.id)}>
+                                onClick={() => router.push(`/edit/?id=${props.item.id}`)}>
                                 Editar
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
-                </AlertDialog> */}
+                </AlertDialog>
             </section>
         </li>
     )
