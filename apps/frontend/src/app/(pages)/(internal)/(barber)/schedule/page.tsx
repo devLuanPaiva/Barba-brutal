@@ -2,17 +2,17 @@
 import InputDay from "@/components/appointments/InputDay";
 import ScheduleProfessionalItem from "@/components/appointments/ScheduleProfessionalItem";
 import Header from "@/components/shared/Header";
-import useProfessionalSchedule from "@/data/hooks/useProfessionalSchedule";
+import useLoadSchedule from "@/data/hooks/useLoadSchedule";
 import { IconCalendarCancel } from "@tabler/icons-react";
 
 export default function PageSchedule() {
-    const { date, appointments, deleteAppointment, changeDate } = useProfessionalSchedule()
+    const { date, appointments, deleteAppointment, changedDate } = useLoadSchedule()
 
     return (
         <section className="flex flex-col bg-zinc-900">
             <Header title="Minha Agenda" description="Veja e gerencie seus agendamentos." />
             <section className="container flex flex-col gap-10 py-16">
-                <InputDay date={date} changedValue={changeDate} />
+                <InputDay date={date} changedValue={changedDate} />
                 {appointments.length > 0 ? (
                     <ul className="flex flex-col gap-4 ">
                         {appointments.map((appointment) => (

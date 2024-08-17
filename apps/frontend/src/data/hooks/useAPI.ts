@@ -25,7 +25,7 @@ export default function useAPI() {
   const httpPOST = useCallback(
     async function (url: string, body: any): Promise<any> {
       try {
-        const path = url.startsWith('/') ? url : `/${url}`;
+        const path = url.startsWith("/") ? url : `/${url}`;
         const resp = await fetch(`${URL_BASE}${path}`, {
           method: "POST",
           headers: {
@@ -58,14 +58,35 @@ export default function useAPI() {
     [token]
   );
 
+  const httpPUT = useCallback(
+    async function (url: string, body: any): Promise<any> {
+      try {
+        const path = url.startsWith("/") ? url : `/${url}`;
+        const resp = await fetch(`${URL_BASE}${path}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        });
+        return extractData(resp);
+      } catch (err) {
+        console.error("Error ao executar requisição:", err);
+        throw err;
+      }
+    },
+    [token]
+  );
+  
   async function extractData(resp: Response) {
-    let conteudo = "";
+    let content = "";
     try {
-      conteudo = await resp.text();
-      return JSON.parse(conteudo);
+      content = await resp.text();
+      return JSON.parse(content);
     } catch (e) {
-      return conteudo;
+      return content;
     }
   }
-  return { httpGET, httpPOST, httpDELETE };
+  return { httpGET, httpPOST, httpDELETE, httpPUT };
 }

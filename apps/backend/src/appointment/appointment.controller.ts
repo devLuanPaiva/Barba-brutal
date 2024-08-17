@@ -6,6 +6,7 @@ import {
   HttpException,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { AppointmentRepository } from './appointment.repository';
 import { Appointment, GetOccupiedSlots, User } from '@barba/core';
@@ -22,7 +23,7 @@ export class AppointmentController {
     return this.repo.create(appointment);
   }
 
-  @Get('/:email/:date')
+  @Get('user/:email/:date')
   searchEmail(@Param('email') email: string, @Param('date') dateParam: string) {
     return this.repo.searchEmail(email, new Date(dateParam));
   }
@@ -35,7 +36,7 @@ export class AppointmentController {
     return useCase.execute(+professional, new Date(dateParam));
   }
 
-  @Get(':professional/:date')
+  @Get('professional/:professional/:date')
   searchProfessionalAndDate(
     @Param('professional') professional: string,
     @Param('date') dateParam: string,
@@ -46,11 +47,29 @@ export class AppointmentController {
     );
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   async delete(@Param('id') id: number, @UserLogged() userLogged: User) {
-    if (!userLogged.barber) {
-      throw new HttpException('Usuário não é barbeiro', 401);
+    if (!userLogged) {
+      throw new HttpException('Usuário não está logado', 401);
     }
     await this.repo.delete(+id);
+  }
+
+  @Put('update/:id')
+  async update(
+    @Param('id') id: string,
+    @Body() appointment: Partial<Appointment>,
+    @UserLogged() userLogged: User,
+  ) {
+    if (!userLogged) {
+      throw new HttpException('Usuário não está logado', 401);
+    }
+    const appointmentId = parseInt(id, 10);
+    await this.repo.update(appointmentId, appointment);
+  }
+
+  @Get(':id')
+  view(@Param('id') id: number) {
+    return this.repo.view(+id);
   }
 }

@@ -2,11 +2,11 @@
 import InputDay from "@/components/appointments/InputDay";
 import ItemAppointment from "@/components/appointments/ItemAppointment";
 import Header from "@/components/shared/Header";
-import useUserSchedule from "@/data/hooks/useUserSchedule";
+import useLoadSchedule from "@/data/hooks/useLoadSchedule";
 import { IconCalendarCancel } from "@tabler/icons-react";
 
 export default function PageMyAppointments(){
-    const {appointments, changedDate, date} = useUserSchedule()
+    const {appointments, changedDate, date, deleteAppointment} = useLoadSchedule()
     return(
         <section className="flex flex-col bg-zinc-900">
             <Header title="Minha Agenda" description="Visualize seus agendamentos" />
@@ -15,7 +15,7 @@ export default function PageMyAppointments(){
                 {appointments.length > 0 ? (
                     <ul className="flex flex-col gap-4">
                         {appointments.map((appoint) => (
-                           <ItemAppointment key={appoint.id} item={appoint}/>
+                           <ItemAppointment key={appoint.id} item={appoint} delete={deleteAppointment}/>
                         ))}
                     </ul>
                 ): (

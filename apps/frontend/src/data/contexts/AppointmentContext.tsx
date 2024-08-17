@@ -16,7 +16,7 @@ export function AppointmentProvider({
   const [date, setDate] = useState<Date>(UtilsDate.today());
   const { user } = useUser();
   const [occupiedSchedules, setOccupiedSchedules] = useState<string[]>([]);
-  const { httpGET, httpPOST } = useAPI();
+  const { httpGET, httpPOST, httpPUT } = useAPI();
 
 
   const selectProfessional = useCallback((professional: Professional) => {
@@ -61,6 +61,7 @@ export function AppointmentProvider({
     clear();
   }, [date, professional, services, user, httpPOST, clear]);
 
+  
   const getOccupiedSchedules = useCallback(
     async function (date: Date, professional: Professional): Promise<string[]> {
       try {
@@ -86,7 +87,17 @@ export function AppointmentProvider({
       }
     });
   }, [date, professional, getOccupiedSchedules]);
-
+  
+  const updateSchedule = useCallback(async (id: number | string) => {
+    if (!user?.email) return
+    await httpPUT(`appointment/update/${id}`, {
+      date: date,
+      professional: professional!,
+      services: services,
+    })
+    clear()
+  }, [date, professional, services, httpPUT, clear, user])
+  
   const contextValue = useMemo(() => {
     return {
       date,
@@ -100,8 +111,9 @@ export function AppointmentProvider({
       numberOfSlots,
       selectServices,
       schedule,
+      updateSchedule,
     };
-  }, [date, professional, services, occupiedSchedules, totalDuration, totalPrice, selectDate, selectProfessional, numberOfSlots, selectServices, schedule]);
+  }, [date, professional, services, occupiedSchedules, totalDuration, totalPrice, selectDate, selectProfessional, numberOfSlots, selectServices, schedule, updateSchedule]);
 
   return (
     <AppointmentContext.Provider value={contextValue} >

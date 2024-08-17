@@ -8,16 +8,24 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
   AlertDialogTitle, AlertDialogTrigger
 } from "../ui/alert-dialog";
-export default function Summary() {
+
+type SummaryProps = {
+  update?: boolean;
+  idAppointment?: string | number;
+}
+export default function Summary({update, idAppointment}:Readonly<SummaryProps>) {
   const [loading, setLoading] = useState(false);
-  const { date, professional, services, totalPrice, totalDuration, schedule } =
-    useAppointment();
+  const { date, professional, services, totalPrice, totalDuration, schedule, updateSchedule } = useAppointment();
   const router = useRouter();
 
   async function finalizeAppointment() {
     try {
       setLoading(true);
-      await schedule();
+      if (!update) {
+        await schedule();
+      } else (
+        await updateSchedule(idAppointment)
+      )
       router.push("/appointment/success");
     } finally {
       setLoading(false);

@@ -25,7 +25,7 @@ export class AppointmentRepository implements RepositoryAppointment {
     }
   }
   async searchEmail(email: string, dateParam: Date): Promise<Appointment[]> {
-     const year = dateParam.getFullYear();
+    const year = dateParam.getFullYear();
     const month = dateParam.getUTCMonth();
     const day = dateParam.getUTCDate();
 
@@ -79,6 +79,36 @@ export class AppointmentRepository implements RepositoryAppointment {
     await this.prismaService.appointment.delete({
       where: { id: id },
       include: { services: true },
+    });
+  }
+
+  async update(id: number, appointment: Partial<Appointment>): Promise<void> {
+    try {
+      await this.prismaService.appointment.update({
+        where: { id: id },
+        data: {
+          date: appointment.date,
+          professional: appointment.professional
+            ? { connect: { id: appointment.professional.id } }
+            : undefined,
+          services: appointment.services
+            ? {
+                set: appointment.services.map((service) => ({
+                  id: service.id,
+                })),
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      console.error('Error updating appointment:', error);
+      throw error;
+    }
+  }
+  async view(id: number): Promise<Appointment> {
+    return this.prismaService.appointment.findUnique({
+      where: { id: id },
+      include: { services: true, user: true, professional: true },
     });
   }
 }

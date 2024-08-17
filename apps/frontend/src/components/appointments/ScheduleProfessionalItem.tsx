@@ -32,28 +32,24 @@ export default function ScheduleProfessionalItem(props: Readonly<ScheduleProfess
             </div>
             <AlertDialog>
                 <AlertDialogTrigger>
-                    <button className="button bg-gradient-to-r from-red-500 to-red-600
-                            text-white font-semibold text-base md:text-lg
-                            py-2 px-4 hover:from-red-600 hover:to-red-700" >
+                    <button className="button bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold text-base md:text-lg py-2 px-4 hover:from-red-600 hover:to-red-700" >
                         <IconTrash size={24} stroke={1.5} />
                     </button>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Excluir Agendamento</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                Tem certeza que deseja excluir este agendamento?
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel className="button rounded" onClick={() => { }}>Cancelar</AlertDialogCancel>
-                            <AlertDialogAction className="button rounded bg-gradient-to-r from-red-500 to-red-600
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Excluir Agendamento</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Tem certeza que deseja excluir este agendamento?
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="button rounded" >Cancelar</AlertDialogCancel>
+                        <AlertDialogAction className="button rounded bg-gradient-to-r from-red-500 to-red-600
                             text-white font-semibold text-base md:text-lg
                             py-2 px-4 hover:from-red-600 hover:to-red-700" onClick={() => props.delete(appointment.id)}>Excluir</AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-
-                </AlertDialogTrigger>
-
+                    </AlertDialogFooter>
+                </AlertDialogContent>
             </AlertDialog>
         </li>
     )
