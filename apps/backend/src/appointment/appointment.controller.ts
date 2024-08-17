@@ -57,14 +57,15 @@ export class AppointmentController {
 
   @Put('update/:id')
   async update(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() appointment: Partial<Appointment>,
     @UserLogged() userLogged: User,
   ) {
     if (!userLogged) {
       throw new HttpException('Usuário não está logado', 401);
     }
-    await this.repo.update(id, appointment);
+    const appointmentId = parseInt(id, 10);
+    await this.repo.update(appointmentId, appointment);
   }
 
   @Get(':id')
