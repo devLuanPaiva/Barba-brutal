@@ -1,5 +1,5 @@
 import { User } from "@barba/core";
 
-export default interface UserMenuProps {
+export interface UserMenuProps {
   user: User;
 }

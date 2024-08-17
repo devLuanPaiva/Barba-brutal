@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 import { IconX } from "@tabler/icons-react";
 import { UtilsDate, UtilsSchedule } from "@barba/core";
 import useAppointment from "@/data/hooks/useAppointments";
-import TimesInputProps from "@/data/interfaces/TimesInputProps.interface";
+import { TimesInputProps } from "@/data/interfaces";
 
-export default function InputTimes(props: TimesInputProps) {
+export default function InputTimes(props: Readonly<TimesInputProps>) {
   const [hoveredTime, setHoveredTime] = useState<string | null>(null);
   const { occupiedSchedules } = useAppointment();
   const { morning, afternoon, evening } = UtilsSchedule.timesOfTheDay();
@@ -17,11 +17,14 @@ export default function InputTimes(props: TimesInputProps) {
 
   function getTimePeriod(time: string | null, quantity: number) {
     if (!time) return [];
-    const times = morning.includes(time)
-      ? morning
-      : afternoon.includes(time)
-        ? afternoon
-        : evening;
+    let times = [];
+    if (morning.includes(time)) {
+      times = morning;
+    } else if (afternoon.includes(time)) {
+      times = afternoon;
+    } else {
+      times = evening;
+    }
     const index = times.findIndex((t) => time == t);
     return times.slice(index, index + quantity);
   }
@@ -41,7 +44,7 @@ export default function InputTimes(props: TimesInputProps) {
     const occupied = occupiedSchedules.includes(time);
 
     return (
-      <div
+      <button
         key={time}
         className={cn(
           "flex justify-center items-center cursor-pointer h-8 border border-zinc-800 rounded select-none",
@@ -57,15 +60,14 @@ export default function InputTimes(props: TimesInputProps) {
         onClick={() => {
           if (notSelectable) return;
           if (occupied || blockedPeriod) return;
-          props.dateChanged(UtilsDate.applySchedule(props.date, time));
+          props.changedValue(UtilsDate.applySchedule(props.date, time));
         }}
       >
-        <span
-          className={cn("text-sm text-zinc-400", {
-            "text-black font-semibold": highlightTime,
-            "text-white font-semibold": selected,
-            "text-zinc-400 font-semibold": occupied,
-          })}
+        <span className={cn("text-sm text-zinc-400", {
+          "text-black font-semibold": highlightTime,
+          "text-white font-semibold": selected,
+          "text-zinc-400 font-semibold": occupied,
+        })}
         >
           {notSelectable || blockedPeriod || occupied ? (
             <IconX size={18} className="text-white" />
@@ -73,26 +75,24 @@ export default function InputTimes(props: TimesInputProps) {
             time
           )}
         </span>
-      </div>
+      </button>
     );
   }
   return (
-    <div className="flex flex-col gap-5">
-      <span className="text-sm uppercase text-zinc-400">
+    <section className="flex flex-col gap-5">
+      <h2 className="text-sm uppercase text-zinc-400">
         Horários Disponíveis
-      </span>
-      <div className="flex flex-col gap-3 select-none">
-        <span className="text-xs uppercase text-zinc-400">Manhã</span>
-        <div className="grid grid-cols-8 gap-1">{morning.map(renderTime)}</div>
+      </h2>
+      <section className="flex flex-col gap-3 select-none">
+        <h3 className="text-xs uppercase text-zinc-400">Manhã</h3>
+        <article className="grid grid-cols-8 gap-1">{morning.map(renderTime)}</article>
 
-        <span className="text-xs uppercase text-zinc-400">Tarde</span>
-        <div className="grid grid-cols-8 gap-1">
-          {afternoon.map(renderTime)}
-        </div>
+        <h3 className="text-xs uppercase text-zinc-400">Tarde</h3>
+        <article className="grid grid-cols-8 gap-1">{afternoon.map(renderTime)}</article>
 
-        <span className="text-xs uppercase text-zinc-400">Noite</span>
-        <div className="grid grid-cols-8 gap-1">{evening.map(renderTime)}</div>
-      </div>
-    </div>
+        <h3 className="text-xs uppercase text-zinc-400">Noite</h3>
+        <article className="grid grid-cols-8 gap-1">{evening.map(renderTime)}</article>
+      </section>
+    </section>
   );
 }
