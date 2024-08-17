@@ -23,7 +23,7 @@ export class AppointmentController {
     return this.repo.create(appointment);
   }
 
-  @Get('/:email/:date')
+  @Get('user/:email/:date')
   searchEmail(@Param('email') email: string, @Param('date') dateParam: string) {
     return this.repo.searchEmail(email, new Date(dateParam));
   }
@@ -36,7 +36,7 @@ export class AppointmentController {
     return useCase.execute(+professional, new Date(dateParam));
   }
 
-  @Get(':professional/:date')
+  @Get('professional/:professional/:date')
   searchProfessionalAndDate(
     @Param('professional') professional: string,
     @Param('date') dateParam: string,
