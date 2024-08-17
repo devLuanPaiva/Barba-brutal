@@ -5,10 +5,10 @@ export interface BaseContextProps {
   loading: boolean;
 }
 
-export interface SectionContextProps extends BaseContextProps{
+export interface SectionContextProps extends BaseContextProps {
   token: string | null;
-  createSection: (jwt: string) => void
-  clearSection: () => void
+  createSection: (jwt: string) => void;
+  clearSection: () => void;
 }
 
 export interface UserContextProps extends BaseContextProps {
@@ -29,4 +29,5 @@ export interface AppointmentContextProps {
   selectServices(services: Service[]): void;
   selectDate(date: Date): void;
   schedule(): Promise<void>;
+  updateSchedule(id: number | string | undefined): Promise<void>;
 }
