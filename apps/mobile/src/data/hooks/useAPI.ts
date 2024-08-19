@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import useSection from "./useSection";
 
-const URL_BASE_API = 'http://192.168.2.100:3001';
+const URL_BASE = "http://192.168.2.100:3001";
 
 export default function useAPI() {
   const { token } = useSection();
@@ -9,7 +9,7 @@ export default function useAPI() {
     async function (url: string): Promise<any> {
       const path = url.startsWith("/") ? url : `/${url}`;
       try {
-        const response = await fetch(`${URL_BASE_API}${path}`, {
+        const response = await fetch(`${URL_BASE}${path}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -27,8 +27,43 @@ export default function useAPI() {
     async function (url: string, body: any): Promise<any> {
       try {
         const path = url.startsWith("/") ? url : `/${url}`;
-        const resp = await fetch(`${URL_BASE_API}${path}`, {
+        const resp = await fetch(`${URL_BASE}${path}`, {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        });
+        return extractData(resp);
+      } catch (err) {
+        console.error("Error ao executar requisição:", err);
+        throw err;
+      }
+    },
+    [token]
+  );
+  const httpDELETE = useCallback(
+    async function (urL: string): Promise<any> {
+      const path = urL.startsWith("/") ? urL : `/${urL}`;
+      const resp = await fetch(`${URL_BASE}${path}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return extractData(resp);
+    },
+    [token]
+  );
+
+  const httpPUT = useCallback(
+    async function (url: string, body: any): Promise<any> {
+      try {
+        const path = url.startsWith("/") ? url : `/${url}`;
+        const resp = await fetch(`${URL_BASE}${path}`, {
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -53,5 +88,5 @@ export default function useAPI() {
       return content;
     }
   }
-  return { httpGET, httpPOST };
+  return { httpGET, httpPOST, httpDELETE, httpPUT };
 }
