@@ -2,6 +2,7 @@ import {
   Image,
   ImageBackground,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -11,8 +12,10 @@ import useUser from "../data/hooks/useUser";
 import useFormUser from "../data/hooks/useFormUser";
 import { useEffect, useState } from "react";
 import { PhoneUtils } from "@barba/core";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Register({ navigation }: any) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
   const [mode, setMode] = useState<'access' | 'register'>('access');
   const { user } = useUser();
   const { name, setName, email, setEmail, phone, setPhone, errors, registerUser, loginUser, password, setPassword } =
@@ -24,7 +27,7 @@ export default function Register({ navigation }: any) {
     }
   }, [user]);
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <ImageBackground
         source={require("../../assets/inicio/fundo.png")}
         style={styles.imagemDeFundo}
@@ -41,7 +44,7 @@ export default function Register({ navigation }: any) {
           </Text>
           <View style={styles.formulario}>
             {mode === 'register' && (
-              <>
+              <View style={styles.boxInput}>
                 <Text style={styles.label}>Nome</Text>
                 <TextInput
                   style={[styles.input, errors.name ? styles.inputError : null]}
@@ -53,35 +56,51 @@ export default function Register({ navigation }: any) {
                 {errors.name ? (
                   <Text style={styles.errorText}>{errors.name}</Text>
                 ) : null}
-              </>
+              </View>
             )}
-            <Text style={styles.label}>E-mail</Text>
-            <TextInput
-              style={[styles.input, errors.email ? styles.inputError : null]}
-              placeholder="Digite seu e-mail"
-              placeholderTextColor="#666"
-              value={email.toLowerCase()}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-            />
-            {errors.email ? (
-              <Text style={styles.errorText}>{errors.email}</Text>
-            ) : null}
+            <View style={styles.boxInput}>
+              <Text style={styles.label}>E-mail</Text>
+              <TextInput
+                style={[styles.input, errors.email ? styles.inputError : null]}
+                placeholder="Digite seu e-mail"
+                placeholderTextColor="#666"
+                value={email.toLowerCase()}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+              />
+              {errors.email ? (
+                <Text style={styles.errorText}>{errors.email}</Text>
+              ) : null}
+            </View>
 
-            <Text style={styles.label}>Senha</Text>
-            <TextInput
-              style={[styles.input, errors.password ? styles.inputError : null]}
-              placeholder="Digite sua senha"
-              placeholderTextColor="#666"
-              value={password}
-              onChangeText={setPassword}
-              keyboardType="visible-password"
-            />
-            {errors.password ? (
-              <Text style={styles.errorText}>{errors.password}</Text>
-            ) : null}
+            <View style={styles.boxInput}>
+              <Text style={styles.label}>Senha</Text>
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  style={[styles.input, errors.password ? styles.inputError : null]}
+                  placeholder="Digite sua senha"
+                  placeholderTextColor="#666"
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={!isPasswordVisible}
+                />
+                <Pressable
+                  style={styles.eyeButton}
+                  onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                >
+                  <Ionicons
+                    name={isPasswordVisible ? 'eye-off' : 'eye'}
+                    size={24}
+                    color="#f3f3f3"
+                  />
+                </Pressable>
+              </View>
+              {errors.password ? (
+                <Text style={styles.errorText}>{errors.password}</Text>
+              ) : null}
+            </View>
             {mode === 'register' && (
-              <>
+              <View style={styles.boxInput}>
                 <Text style={styles.label}>Telefone</Text>
                 <TextInput
                   style={[styles.input, errors.phone ? styles.inputError : null]}
@@ -94,7 +113,7 @@ export default function Register({ navigation }: any) {
                 {errors.phone ? (
                   <Text style={styles.errorText}>{errors.phone}</Text>
                 ) : null}
-              </>
+              </View>
             )}
           </View>
           <Pressable style={styles.button} onPress={mode === 'access' ? loginUser : registerUser}>
@@ -102,25 +121,28 @@ export default function Register({ navigation }: any) {
           </Pressable>
 
           <Pressable onPress={() => setMode(mode === 'access' ? 'register' : 'access')}>
-            <Text style={styles.buttonText}>
+            <Text style={styles.textButton}>
               {mode === 'access' ? 'Ainda não tem conta? Cadastre-se!' : 'Já tem conta? Entre na plataforma!'}
             </Text>
           </Pressable>
 
         </View>
       </ImageBackground>
-    </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  boxInput: {
+    marginBottom: 15,
+    width: "100%",
+  },
   label: {
     color: "#fff",
     alignSelf: "flex-start",
     marginBottom: 8,
-    marginLeft: 10,
     fontSize: 16,
   },
   input: {
@@ -131,7 +153,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     color: "#fff",
-    marginBottom: 20,
   },
   inputError: {
     borderColor: "red",
@@ -139,9 +160,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
-    marginBottom: 20,
-    marginLeft: 10,
-    alignSelf: "flex-start",
+
   },
   button: {
     width: "40%",
@@ -155,13 +174,21 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
   },
+  textButton: {
+    color: "#f1f1f1",
+    fontSize: 16,
+    marginTop: 10,
+    alignSelf: "center",
+  },
   imagemDeFundo: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
   },
   formulario: {
-    padding: 40,
+    width: "40%",
+    paddingTop: 40,
+    columnGap: 10
   },
   logo: {
     marginTop: 20,
@@ -183,5 +210,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
     marginHorizontal: 20,
+  },
+  passwordContainer: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  eyeButton: {
+    marginLeft: -40,
+    paddingHorizontal: 10,
   },
 });
