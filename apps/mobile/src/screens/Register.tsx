@@ -2,11 +2,10 @@ import {
   Image,
   ImageBackground,
   Pressable,
-  ScrollView,
+  View,
   StyleSheet,
   Text,
   TextInput,
-  View,
 } from "react-native";
 import useUser from "../data/hooks/useUser";
 import useFormUser from "../data/hooks/useFormUser";
@@ -27,7 +26,7 @@ export default function Register({ navigation }: any) {
     }
   }, [user]);
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <ImageBackground
         source={require("../../assets/inicio/fundo.png")}
         style={styles.imagemDeFundo}
@@ -128,7 +127,7 @@ export default function Register({ navigation }: any) {
 
         </View>
       </ImageBackground>
-    </ScrollView>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -186,7 +185,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   formulario: {
-    width: "40%",
+    width: "70%",
     paddingTop: 40,
     columnGap: 10
   },
