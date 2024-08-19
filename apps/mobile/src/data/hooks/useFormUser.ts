@@ -30,8 +30,6 @@ export default function useFormUser() {
     }
     if (!phone) {
       errors.phone = "Telefone é obrigatório";
-    } else if (!/^\d{10,11}$/.test(phone)) {
-      errors.phone = "Telefone deve ter 10 ou 11 dígitos";
     }
 
     setErrors(errors);

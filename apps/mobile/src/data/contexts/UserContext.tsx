@@ -5,6 +5,7 @@ import useAPI from "../hooks/useAPI";
 import { UserContextProps } from "../interfaces";
 import { User } from "@barba/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import Toast from 'react-native-toast-message';
 
 type RootStackParamList = {
   Home: undefined
@@ -18,7 +19,20 @@ export function UserProvider({ children }: any) {
   const navigation = useNavigation<NavigationProp>();
 
   const register = useCallback(async (user: User) => {
-    await httpPOST('user/register', user);
+    try {
+      await httpPOST('user/register', user);
+      Toast.show({
+        type: 'success',
+        text1: 'Registro bem-sucedido!',
+        text2: 'Você se registrou com sucesso.',
+      });
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Erro no registro',
+        text2: 'Algo deu errado durante o registro. Tente novamente.',
+      });
+    }
   }, [httpPOST]);
 
   const login = useCallback(async (user: Partial<User>) => {

@@ -6,36 +6,41 @@ import Register from "./screens/Register";
 import { NavigationContainer } from "@react-navigation/native";
 import Summary from "./screens/Summary";
 import { SectionProvider } from "./data/contexts/SectionContext";
+import Toast from "react-native-toast-message";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <SectionProvider>
+    <>
+      <NavigationContainer>
+        <SectionProvider>
 
-        <UserProvider>
-          <AppointmentProvider>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="Register"
-                component={Register}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Main"
-                component={Main}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Summary"
-                component={Summary}
-                options={{ headerShown: false }}
-              />
-            </Stack.Navigator>
-          </AppointmentProvider>
-        </UserProvider>
-      </SectionProvider>
-    </NavigationContainer>
+          <UserProvider>
+            <AppointmentProvider>
+              <Stack.Navigator>
+                <Stack.Screen
+                  name="Register"
+                  component={Register}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Main"
+                  component={Main}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Summary"
+                  component={Summary}
+                  options={{ headerShown: false }}
+                />
+              </Stack.Navigator>
+            </AppointmentProvider>
+          </UserProvider>
+        </SectionProvider>
+      </NavigationContainer>
+      <Toast />
+
+    </>
   );
 }
