@@ -5,32 +5,37 @@ import Main from "./screens/Main";
 import Register from "./screens/Register";
 import { NavigationContainer } from "@react-navigation/native";
 import Summary from "./screens/Summary";
+import { SectionProvider } from "./data/contexts/SectionContext";
 
 const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
-    <UserProvider>
-      <AppointmentProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Register"
-              component={Register}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Main"
-              component={Main}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Summary"
-              component={Summary}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AppointmentProvider>
-    </UserProvider>
+    <NavigationContainer>
+      <SectionProvider>
+
+        <UserProvider>
+          <AppointmentProvider>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Register"
+                component={Register}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Main"
+                component={Main}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Summary"
+                component={Summary}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </AppointmentProvider>
+        </UserProvider>
+      </SectionProvider>
+    </NavigationContainer>
   );
 }
