@@ -1,59 +1,48 @@
-"use client";
-import { createContext, useCallback, useEffect, useState } from "react";
+import React, { createContext, useCallback, useMemo } from "react";
+import { useNavigation } from "@react-navigation/native";
+import useSection from "../hooks/useSection";
+import useAPI from "../hooks/useAPI";
+import { UserContextProps } from "../interfaces";
 import { User } from "@barba/core";
-import useSessionStorage from "../hooks/useAsyncStorage";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export interface UserContextProps {
-  loading: boolean;
-  user: User | null;
-  login: (user: User) => Promise<void>;
-  logout: () => void;
+type RootStackParamList = {
+  Home: undefined
 }
-
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 const UserContext = createContext<UserContextProps>({} as any);
 
 export function UserProvider({ children }: any) {
-  const { get, set } = useSessionStorage();
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
+  const { httpPOST } = useAPI();
+  const { clearSection, createSection, loading, user } = useSection();
+  const navigation = useNavigation<NavigationProp>();
 
-  const loadUser = useCallback(
-    async function () {
-      try {
-        const localUser = await get("user");
-        if (localUser) {
-          setUser(localUser);
-        }
-      } finally {
-        setLoading(false);
-      }
-    },
-    [get],
-  );
+  const register = useCallback(async (user: User) => {
+    await httpPOST('user/register', user);
+  }, [httpPOST]);
 
-  async function login(user: User) {
-    setUser(user);
-    await set("user", user);
-  }
+  const login = useCallback(async (user: Partial<User>) => {
+    const token = await httpPOST('user/login', user);
+    createSection(token);
+  }, [createSection, httpPOST]);
 
-  function logout() {
-    setUser(null);
-    set("user", null);
-  }
+  const logout = useCallback(() => {
+    clearSection();
+    navigation?.navigate("Home");
+  }, [navigation, clearSection]);
 
-  useEffect(() => {
-    loadUser();
-  }, [loadUser]);
+  const contextValue = useMemo(() => {
+    return {
+      loading,
+      user,
+      login,
+      register,
+      logout,
+    };
+  }, [loading, user, login, register, logout]);
 
   return (
-    <UserContext.Provider
-      value={{
-        loading,
-        user,
-        login,
-        logout,
-      }}
-    >
+    <UserContext.Provider value={contextValue}>
       {children}
     </UserContext.Provider>
   );
