@@ -1,7 +1,6 @@
-"use client";
 import AppointmentContextProps from "../interfaces/AppointmentContextProps.interface";
-import React, { createContext, useCallback, useEffect, useState } from "react";
-import { Professional, Service, UtilsDate } from "@barba/core";
+import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import { Professional, Service, UtilsDate, UtilsSchedule } from "@barba/core";
 import useUser from "../hooks/useUser";
 import useAPI from "../hooks/useAPI";
 
@@ -9,60 +8,58 @@ export const AppointmentContext = createContext({} as AppointmentContextProps);
 export function AppointmentProvider({
   children,
 }: {
-  children: React.ReactNode;
+  readonly children: React.ReactNode;
 }) {
   const [professional, setProfessional] = useState<Professional | null>(null);
   const [services, setServices] = useState<Service[]>([]);
   const [date, setDate] = useState<Date>(UtilsDate.today());
   const { user } = useUser();
   const [occupiedSchedules, setOccupiedSchedules] = useState<string[]>([]);
-  const { httpGET, httpPOST } = useAPI();
+  const { httpGET, httpPOST, httpPUT } = useAPI();
 
-  function selectProfessional(professional: Professional) {
+  const selectProfessional = useCallback((professional: Professional) => {
     setProfessional(professional);
-  }
+  }, []);
 
-  function selectServices(services: Service[]) {
+  const selectServices = useCallback((services: Service[]) => {
     setServices(services);
-  }
+  }, []);
 
-  function totalDuration() {
-    const duration = services.reduce(
-      (acc, current) => acc + current.amountSlots * 15,
-      0,
-    );
-    return `${Math.trunc(duration / 60)}h ${duration % 60}m`;
-  }
+  const totalDuration = useCallback(() => {
+    return UtilsSchedule.durationTotal(services);
+  }, [services]);
 
-  function totalPrice() {
+  const totalPrice = useCallback(() => {
     return services.reduce((acc, current) => acc + current.price, 0);
-  }
+  }, [services]);
 
-  const selectDate = useCallback(function (date: Date) {
+  const selectDate = useCallback((date: Date) => {
     setDate(date);
   }, []);
-  function numberOfSlots() {
+
+  const numberOfSlots = useCallback(() => {
     return services.reduce((acc, service) => acc + service.amountSlots, 0);
-  }
+  }, [services]);
 
-  async function schedule() {
-    if (!user?.email) return;
 
-    await httpPOST("appointment", {
-      emailCustomer: user.email,
-      date: date,
-      professional: professional!,
-      services: services,
-    });
-
-    clear();
-  }
-  function clear() {
+  const clear = useCallback(() => {
     setDate(UtilsDate.today());
     setOccupiedSchedules([]);
     setProfessional(null);
     setServices([]);
-  }
+  }, []);
+
+  const schedule = useCallback(async () => {
+    if (!user?.email) return;
+    await httpPOST('appointment', {
+      user: user,
+      date: date,
+      professional: professional!,
+      services: services,
+    });
+    clear();
+  }, [date, professional, services, user, httpPOST, clear]);
+
   const getOccupiedSchedules = useCallback(
     async function (date: Date, professional: Professional): Promise<string[]> {
       try {
@@ -71,7 +68,7 @@ export function AppointmentProvider({
         const occupancy = await httpGET(
           `appointment/occupancy/${professional.id}/${dateString}`,
         );
-        return occupancy ?? [];
+        return Array.isArray(occupancy) ? occupancy : [];
       } catch (e) {
         return [];
       }
@@ -81,24 +78,44 @@ export function AppointmentProvider({
 
   useEffect(() => {
     if (!date || !professional) return;
-    getOccupiedSchedules(date, professional).then(setOccupiedSchedules);
+    getOccupiedSchedules(date, professional).then((schedules) => {
+      if (Array.isArray(schedules)) {
+        setOccupiedSchedules(schedules);
+      } else {
+        setOccupiedSchedules([]);
+      }
+    });
   }, [date, professional, getOccupiedSchedules]);
 
+  const updateSchedule = useCallback(async (id: number | string) => {
+    if (!user?.email) return
+    await httpPUT(`appointment/update/${id}`, {
+      date: date,
+      professional: professional!,
+      services: services,
+    })
+    clear()
+  }, [date, professional, services, httpPUT, clear, user])
+
+  const contextValue = useMemo(() => {
+    return {
+      date,
+      professional,
+      services,
+      occupiedSchedules,
+      totalDuration,
+      totalPrice,
+      selectDate,
+      selectProfessional,
+      numberOfSlots,
+      selectServices,
+      schedule,
+      updateSchedule,
+    };
+  }, [date, professional, services, occupiedSchedules, totalDuration, totalPrice, selectDate, selectProfessional, numberOfSlots, selectServices, schedule, updateSchedule]);
   return (
     <AppointmentContext.Provider
-      value={{
-        date,
-        professional,
-        services,
-        occupiedSchedules,
-        totalDuration,
-        totalPrice,
-        selectDate,
-        selectProfessional,
-        numberOfSlots,
-        selectServices,
-        schedule,
-      }}
+      value={contextValue}
     >
       {children}
     </AppointmentContext.Provider>
