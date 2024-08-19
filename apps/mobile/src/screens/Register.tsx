@@ -9,12 +9,13 @@ import {
 } from "react-native";
 import useUser from "../data/hooks/useUser";
 import useFormUser from "../data/hooks/useFormUser";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PhoneUtils } from "@barba/core";
 
 export default function Register({ navigation }: any) {
+  const [mode, setMode] = useState<'access' | 'register'>('access');
   const { user } = useUser();
-  const { name, setName, email, setEmail, phone, setPhone, errors, register } =
+  const { name, setName, email, setEmail, phone, setPhone, errors, registerUser, loginUser, password, setPassword } =
     useFormUser();
 
   useEffect(() => {
@@ -39,18 +40,21 @@ export default function Register({ navigation }: any) {
             de rock pesado!
           </Text>
           <View style={styles.formulario}>
-            <Text style={styles.label}>Nome</Text>
-            <TextInput
-              style={[styles.input, errors.name ? styles.inputError : null]}
-              placeholder="Digite seu nome"
-              placeholderTextColor="#666"
-              value={name}
-              onChangeText={setName}
-            />
-            {errors.name ? (
-              <Text style={styles.errorText}>{errors.name}</Text>
-            ) : null}
-
+            {mode === 'register' && (
+              <>
+                <Text style={styles.label}>Nome</Text>
+                <TextInput
+                  style={[styles.input, errors.name ? styles.inputError : null]}
+                  placeholder="Digite seu nome"
+                  placeholderTextColor="#666"
+                  value={name}
+                  onChangeText={setName}
+                />
+                {errors.name ? (
+                  <Text style={styles.errorText}>{errors.name}</Text>
+                ) : null}
+              </>
+            )}
             <Text style={styles.label}>E-mail</Text>
             <TextInput
               style={[styles.input, errors.email ? styles.inputError : null]}
@@ -64,22 +68,45 @@ export default function Register({ navigation }: any) {
               <Text style={styles.errorText}>{errors.email}</Text>
             ) : null}
 
-            <Text style={styles.label}>Telefone</Text>
+            <Text style={styles.label}>Senha</Text>
             <TextInput
-              style={[styles.input, errors.phone ? styles.inputError : null]}
-              placeholder="Digite seu telefone"
+              style={[styles.input, errors.password ? styles.inputError : null]}
+              placeholder="Digite sua senha"
               placeholderTextColor="#666"
-              value={PhoneUtils.format(phone)}
-              onChangeText={(tel) => setPhone(PhoneUtils.unformat(tel))}
-              keyboardType="phone-pad"
+              value={password}
+              onChangeText={setPassword}
+              keyboardType="visible-password"
             />
-            {errors.phone ? (
-              <Text style={styles.errorText}>{errors.phone}</Text>
+            {errors.password ? (
+              <Text style={styles.errorText}>{errors.password}</Text>
             ) : null}
+            {mode === 'register' && (
+              <>
+                <Text style={styles.label}>Telefone</Text>
+                <TextInput
+                  style={[styles.input, errors.phone ? styles.inputError : null]}
+                  placeholder="Digite seu telefone"
+                  placeholderTextColor="#666"
+                  value={PhoneUtils.format(phone)}
+                  onChangeText={setPhone}
+                  keyboardType="phone-pad"
+                />
+                {errors.phone ? (
+                  <Text style={styles.errorText}>{errors.phone}</Text>
+                ) : null}
+              </>
+            )}
           </View>
-          <Pressable style={styles.button} onPress={register}>
-            <Text style={styles.buttonText}>Entrar</Text>
+          <Pressable style={styles.button} onPress={mode === 'access' ? loginUser : registerUser}>
+            <Text style={styles.buttonText}>{mode === 'access' ? 'Entrar' : 'Cadastrar'}</Text>
           </Pressable>
+
+          <Pressable onPress={() => setMode(mode === 'access' ? 'register' : 'access')}>
+            <Text style={styles.buttonText}>
+              {mode === 'access' ? 'Ainda não tem conta? Cadastre-se!' : 'Já tem conta? Entre na plataforma!'}
+            </Text>
+          </Pressable>
+
         </View>
       </ImageBackground>
     </View>
