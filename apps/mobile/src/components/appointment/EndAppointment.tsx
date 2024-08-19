@@ -1,25 +1,13 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { Appointment } from "@barba/core";
-import useAPI from "../../data/hooks/useAPI";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useUser from "@/src/data/hooks/useUser";
 import ItemAppointment from "./ItemAppointment";
+import useLoadSchedule from "@/src/data/hooks/useLoadSchedule";
 
 export default function EndAppointments() {
-  const [appointments, setAppointments] = useState<Appointment[]>();
-  const { httpGET } = useAPI();
   const { user } = useUser();
-
-  useEffect(() => {
-    LoadingAppointments();
-  }, [user]);
-
-  async function LoadingAppointments() {
-    if (!user?.email) return;
-    const appointments = await httpGET(`appointment/${user?.email}`);
-    setAppointments(appointments);
-  }
-
+  const {appointments, deleteAppointment} = useLoadSchedule()
   function renderContent() {
     if (appointments && appointments?.length > 0) {
       return (
@@ -30,7 +18,7 @@ export default function EndAppointments() {
           {appointments
             ?.toReversed()
             .map((a: Appointment) => (
-              <ItemAppointment appointment={a} key={a.id} />
+              <ItemAppointment appointment={a} key={a.id} delete={deleteAppointment}/>
             ))}
         </View>
       );
