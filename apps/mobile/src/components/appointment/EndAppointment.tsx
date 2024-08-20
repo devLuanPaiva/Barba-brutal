@@ -7,21 +7,37 @@ import useLoadSchedule from "@/src/data/hooks/useLoadSchedule";
 
 export default function EndAppointments() {
   const { user } = useUser();
-  const {appointments, deleteAppointment} = useLoadSchedule()
+  const { appointments, deleteAppointment } = useLoadSchedule()
   function renderContent() {
     if (appointments && appointments?.length > 0) {
-      return (
-        <View>
-          <Text style={styles.caption}>
-            Aqui estão seus últimos agendamentos:
-          </Text>
-          {appointments
-            ?.toReversed()
-            .map((a: Appointment) => (
-              <ItemAppointment appointment={a} key={a.id} delete={deleteAppointment}/>
-            ))}
-        </View>
-      );
+      const upcomingAppointments = appointments
+        .filter((a: Appointment) => new Date(a.date).getTime() >= Date.now())
+        .slice()
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      if (upcomingAppointments.length > 0) {
+        return (
+          <View>
+            <Text style={styles.caption}>
+              Aqui estão seus últimos agendamentos:
+            </Text>
+            {upcomingAppointments.map((a: Appointment) => (
+              <ItemAppointment appointment={a} key={a.id} delete={deleteAppointment} />
+            ))
+            }
+          </View>
+        );
+      } else {
+        return (
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Text style={styles.caption}>Você não tem agendamentos futuros.</Text>
+            <Text style={styles.caption}>Vamos agendar um novo serviço?</Text>
+            <Image
+              source={require("../../../assets/inicio/garoto-propaganda.png")}
+              style={styles.coverBoy}
+            />
+          </View>
+        );
+      }
     } else {
       return (
         <View style={{ justifyContent: "center", alignItems: "center" }}>
