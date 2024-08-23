@@ -7,41 +7,40 @@ interface ServicesInputProps {
   services: Service[];
   servicesChanged: (services: Service[]) => void;
 }
-
-function Option(props: {
+interface OptionProps {
   service: Service;
   onClick: (s: Service) => void;
   selected?: boolean;
-}) {
+}
+function Option({ service, onClick, selected }: Readonly<OptionProps>) {
   return (
     <View
-      key={props.service.id}
+      key={service.id}
       style={{
         ...styles.serviceCard,
-        backgroundColor: props.selected ? "#22c55e" : "#18181b",
+        backgroundColor: selected ? "#22c55e" : "#18181b",
       }}
     >
       <Pressable
         onPress={() => {
-          props.onClick(props.service);
+          onClick(service);
         }}
       >
         <View>
           <Image
             style={styles.serviceImage}
             source={
-              images.services.find((s) => s.id === props.service.id)?.image
+              images.services.find((s) => s.id === service.id)?.image
             }
           />
-          <Text style={styles.serviceText}>{props.service.name}</Text>
+          <Text style={styles.serviceText}>{service.name}</Text>
         </View>
       </Pressable>
     </View>
   );
 }
 
-export default function ServicesInput(props: ServicesInputProps) {
-  const { services, servicesChanged } = props;
+export default function ServicesInput({ services, servicesChanged }: Readonly<ServicesInputProps>) {
   const { services: allServices } = useServices();
 
   function toggleServiceSelection(service: Service) {

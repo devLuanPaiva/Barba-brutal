@@ -8,8 +8,7 @@ interface ProfessionalInputProps {
   professionalChanged: (professional: Professional) => void;
 }
 
-export default function ProfessionalInput(props: ProfessionalInputProps) {
-  const { professionals, professionalChanged } = props;
+export default function ProfessionalInput({ professionalChanged, professionals }: Readonly<ProfessionalInputProps>) {
   const { professional } = useProfessionals();
 
   function renderProfessional(p: Professional) {

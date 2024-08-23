@@ -6,7 +6,7 @@ export interface DayInputProps {
   dateChanged(date: Date): void;
 }
 
-export default function DayInput(props: DayInputProps) {
+export default function DayInput(props: Readonly<DayInputProps>) {
   function renderDay(date: Date) {
     if (date.getDay() === 0) {
       date.setDate(date.getDate() + 1);

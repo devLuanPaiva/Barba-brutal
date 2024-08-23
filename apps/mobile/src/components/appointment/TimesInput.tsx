@@ -9,7 +9,7 @@ interface TimesInputProps {
   dateChanged(date: Date): void;
 }
 
-export default function TimesInput(props: TimesInputProps) {
+export default function TimesInput(props: Readonly<TimesInputProps>) {
   const [currentHour, setCurrentHour] = useState<string | null>(null);
   const { occupiedSchedules } = useAppointment();
   const { morning, afternoon, evening } = UtilsSchedule.timesOfTheDay();
@@ -56,7 +56,7 @@ export default function TimesInput(props: TimesInputProps) {
         return {
           background: "#ef4444",
           disabled: true,
-        };
+        }
       } else if (!hasTime && !occupied && selectedPeriod.includes(time)) {
         return {
           background: "#ef4444",

@@ -8,7 +8,7 @@ export interface DateInputProps {
   dateChanged: (date: Date) => void;
 }
 
-export default function DateInput(props: DateInputProps) {
+export default function DateInput(props: Readonly<DateInputProps>) {
   const { date, numberOfSlots, dateChanged } = props;
 
   return (
