@@ -1,14 +1,20 @@
 import { Appointment, UtilsDate } from "@barba/core";
 import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from '@react-navigation/stack';
 
 interface AgendamentoItemProps {
   appointment: Appointment;
   delete: (id: number) => void;
 }
+type RootStackParamList = {
+  EditAppointment: { id: string | number }
+}
 
-export default function ItemAppointment(props: AgendamentoItemProps) {
-  const navigation = useNavigation();
+type EditAppointmenScreenNavigationProp = StackNavigationProp<RootStackParamList, 'EditAppointment'>
+
+export default function ItemAppointment(props: Readonly<AgendamentoItemProps>) {
+  const navigation = useNavigation<EditAppointmenScreenNavigationProp>();
   const cor =
     new Date(props.appointment.date).getTime() > Date.now()
       ? "#007aff"
@@ -57,7 +63,7 @@ export default function ItemAppointment(props: AgendamentoItemProps) {
         },
         {
           text: "Editar",
-          // onPress: () => navigation.navigate("EditPage", { id: props.appointment.id }),
+          onPress: () => navigation.navigate("EditAppointment", { id: props.appointment.id }),
         },
       ]
     );
