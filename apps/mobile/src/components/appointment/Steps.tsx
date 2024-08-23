@@ -1,15 +1,20 @@
 import { StyleSheet, Text, Pressable, View } from "react-native";
 import React, { useState } from "react";
 
-export interface StepsProps {
+
+type SummaryProps = {
+  update: boolean;
+  idAppointment: string | number | null;
+}
+export interface StepsProps extends SummaryProps {
   children: any;
   labels: string[];
   allowNextStep: boolean;
   allowNextStepChanged(value: boolean): void;
-  finalize(): void;
+  finalize(params: SummaryProps): void;
 }
 
-export default function Steps(props: StepsProps) {
+export default function Steps(props: Readonly<StepsProps>) {
   const [currentStep, setCurrentStep] = useState(0);
 
   function previousStep() {
@@ -87,7 +92,7 @@ export default function Steps(props: StepsProps) {
         {renderButton(
           "Próximo",
           props.allowNextStep,
-          currentStep === props.labels.length - 1 ? props.finalize : nextStep,
+          currentStep === props.labels.length - 1 ? () => props.finalize({ update: props.update ?? false, idAppointment: props.idAppointment }) : nextStep,
         )}
       </View>
     </View>
