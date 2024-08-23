@@ -55,16 +55,18 @@ export default function Appointment({ navigation }: any) {
           >
             <ProfessionalInput
               professionals={professional}
-              professionalChanged={professionalChanged}
+              onChange={professionalChanged}
+              changedValue={professionalChanged}
             />
             <ServicesInput
               services={services}
-              servicesChanged={servicesChanged}
+              changedValue={servicesChanged}
+              onChange={servicesChanged}
             />
             <DateInput
               date={date}
-              dateChanged={dateChanged}
-              numberOfSlots={numberOfSlots()}
+              changedValue={dateChanged}
+              amountSlots={numberOfSlots()}
             />
           </Steps>
         </View>

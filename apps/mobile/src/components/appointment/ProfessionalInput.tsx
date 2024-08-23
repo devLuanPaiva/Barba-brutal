@@ -1,14 +1,10 @@
 import images from "@/src/data/constants/images";
+import { ProfessionalInputProps } from "@/src/data/interfaces";
 import { Professional } from "@barba/core";
 import { useProfessionals } from "@barba/ui";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-interface ProfessionalInputProps {
-  professionals: Professional | null;
-  professionalChanged: (professional: Professional) => void;
-}
-
-export default function ProfessionalInput({ professionalChanged, professionals }: Readonly<ProfessionalInputProps>) {
+export default function ProfessionalInput({ onChange, professionals }: Readonly<ProfessionalInputProps>) {
   const { professional } = useProfessionals();
 
   function renderProfessional(p: Professional) {
@@ -20,7 +16,7 @@ export default function ProfessionalInput({ professionalChanged, professionals }
           backgroundColor: professionals?.id === p?.id ? "#22c55e" : "#18181b",
         }}
       >
-        <Pressable onPress={() => professionalChanged(p)}>
+        <Pressable onPress={() => onChange(p)}>
           <View style={{ alignItems: "center" }}>
             <Image
               style={{ width: 100, height: 100, borderRadius: 6 }}

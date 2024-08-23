@@ -1,23 +1,17 @@
 import { View } from "react-native";
 import TimesInput from "./TimesInput";
 import DayInput from "./DayInput";
-
-export interface DateInputProps {
-  date: Date;
-  numberOfSlots: number;
-  dateChanged: (date: Date) => void;
-}
-
+import { DateInputProps } from "@/src/data/interfaces";
 export default function DateInput(props: Readonly<DateInputProps>) {
-  const { date, numberOfSlots, dateChanged } = props;
+  const { date, amountSlots, changedValue } = props;
 
   return (
     <View>
-      <DayInput date={date} dateChanged={dateChanged} />
+      <DayInput date={date} changedValue={changedValue} />
       <TimesInput
         date={date}
-        numTimes={numberOfSlots}
-        dateChanged={dateChanged}
+        slotsQuantity={amountSlots}
+        changedValue={changedValue}
       />
     </View>
   );

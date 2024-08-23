@@ -2,34 +2,32 @@ import { Appointment, UtilsDate } from "@barba/core";
 import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
+import { AppointmentItemProps } from "@/src/data/interfaces";
 
-interface AgendamentoItemProps {
-  appointment: Appointment;
-  delete: (id: number) => void;
-}
+
 type RootStackParamList = {
   EditAppointment: { id: string | number }
 }
 
 type EditAppointmenScreenNavigationProp = StackNavigationProp<RootStackParamList, 'EditAppointment'>
 
-export default function ItemAppointment(props: Readonly<AgendamentoItemProps>) {
+export default function ItemAppointment(props: Readonly<AppointmentItemProps>) {
   const navigation = useNavigation<EditAppointmenScreenNavigationProp>();
   const cor =
-    new Date(props.appointment.date).getTime() > Date.now()
+    new Date(props.item.date).getTime() > Date.now()
       ? "#007aff"
       : "#AAAAAA";
 
   function addTotalServices() {
-    return props.appointment.services.reduce(
+    return props.item.services.reduce(
       (acc, service) => acc + service.price,
       0,
     );
   }
 
   function renderServices() {
-    return props.appointment.services.reduce((acc, service, index) => {
-      return `${acc}${index + 1}. ${service.name}${index < props.appointment.services.length - 1 ? ", " : ""
+    return props.item.services.reduce((acc, service, index) => {
+      return `${acc}${index + 1}. ${service.name}${index < props.item.services.length - 1 ? ", " : ""
         }`;
     }, "");
   }
@@ -46,7 +44,7 @@ export default function ItemAppointment(props: Readonly<AgendamentoItemProps>) {
         {
           text: "Excluir",
           style: "destructive",
-          onPress: () => props.delete(props.appointment.id),
+          onPress: () => props.delete(props.item.id),
         },
       ]
     );
@@ -63,7 +61,7 @@ export default function ItemAppointment(props: Readonly<AgendamentoItemProps>) {
         },
         {
           text: "Editar",
-          onPress: () => navigation.navigate("EditAppointment", { id: props.appointment.id }),
+          onPress: () => navigation.navigate("EditAppointment", { id: props.item.id }),
         },
       ]
     );
@@ -72,12 +70,12 @@ export default function ItemAppointment(props: Readonly<AgendamentoItemProps>) {
   return (
     <View style={{ ...styles.card, borderColor: cor }}>
       <Text style={{ ...styles.nameProfessional }}>
-        {props.appointment.professional.name
-          ? props.appointment.professional.name
+        {props.item.professional.name
+          ? props.item.professional.name
           : "Não informado"}
       </Text>
       <Text style={{ ...styles.date, color: cor }}>
-        {UtilsDate.formatDateAndTime(new Date(props.appointment.date))}
+        {UtilsDate.formatDateAndTime(new Date(props.item.date))}
       </Text>
       <Text style={styles.services}>{renderServices()}</Text>
       <Text style={styles.price}>

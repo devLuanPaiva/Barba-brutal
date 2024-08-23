@@ -1,10 +1,7 @@
+import { DayInputProps } from "@/src/data/interfaces";
 import { UtilsDate } from "@barba/core";
 import { StyleSheet, Text, Pressable, View } from "react-native";
 
-export interface DayInputProps {
-  date: Date;
-  dateChanged(date: Date): void;
-}
 
 export default function DayInput(props: Readonly<DayInputProps>) {
   function renderDay(date: Date) {
@@ -21,7 +18,7 @@ export default function DayInput(props: Readonly<DayInputProps>) {
           backgroundColor: selected ? "#fbbf24" : "#18181b",
         }}
       >
-        <Pressable onPress={() => props.dateChanged(date)}>
+        <Pressable onPress={() => props.changedValue(date)}>
           <View style={{ alignItems: "center" }}>
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 4 }}

@@ -1,13 +1,8 @@
 import useAppointment from "@/src/data/hooks/useAppointments";
+import { TimesInputProps } from "@/src/data/interfaces";
 import { UtilsSchedule, UtilsDate } from "@barba/core";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-
-interface TimesInputProps {
-  date: Date;
-  numTimes: number;
-  dateChanged(date: Date): void;
-}
 
 export default function TimesInput(props: Readonly<TimesInputProps>) {
   const [currentHour, setCurrentHour] = useState<string | null>(null);
@@ -31,13 +26,13 @@ export default function TimesInput(props: Readonly<TimesInputProps>) {
   }
 
   function renderTime(time: string) {
-    const period = getPeriod(currentHour, props.numTimes);
-    const hasTime = period.length === props.numTimes;
+    const period = getPeriod(currentHour, props.slotsQuantity);
+    const hasTime = period.length === props.slotsQuantity;
 
-    const selectedPeriod = getPeriod(selectedHour, props.numTimes);
+    const selectedPeriod = getPeriod(selectedHour, props.slotsQuantity);
 
     const selected =
-      selectedPeriod.length === props.numTimes && selectedPeriod.includes(time);
+      selectedPeriod.length === props.slotsQuantity && selectedPeriod.includes(time);
 
     const blockedPeriod = period.some((h) =>
       occupiedSchedules.some((occupied) => occupied === h),
@@ -81,7 +76,7 @@ export default function TimesInput(props: Readonly<TimesInputProps>) {
         onPress={() => {
           setCurrentHour(time);
           if (getButtonProps().disabled) return;
-          props.dateChanged(UtilsDate.applySchedule(props.date, time));
+          props.changedValue(UtilsDate.applySchedule(props.date, time));
         }}
         style={{
           ...styles.timeContainer,

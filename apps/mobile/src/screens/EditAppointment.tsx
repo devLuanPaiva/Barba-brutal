@@ -1,4 +1,4 @@
-import { RouteProp, useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import useFetchAppointment from "../data/hooks/useFetchAppointment"
 import { useEffect, useState } from "react"
@@ -15,7 +15,6 @@ type RootStackParamList = {
     Summary: { update: boolean; idAppointment: number | string };
 }
 type EditAppointmentNavigationProp = StackNavigationProp<RootStackParamList, 'EditAppointment'>;
-type EditAppointmenRouteProp = RouteProp<RootStackParamList, 'EditAppointment'>
 
 export default function EditAppointment({ route }: Readonly<{ route: { params: { id: string | number } } }>) {
     const navigation = useNavigation<EditAppointmentNavigationProp>()
@@ -66,16 +65,18 @@ export default function EditAppointment({ route }: Readonly<{ route: { params: {
                     >
                         <ProfessionalInput
                             professionals={professional}
-                            professionalChanged={professionalChanged}
+                            onChange={professionalChanged}
+                            changedValue={professionalChanged}
                         />
                         <ServicesInput
                             services={services}
-                            servicesChanged={servicesChanged}
+                            onChange={servicesChanged}
+                            changedValue={servicesChanged}
                         />
                         <DateInput
                             date={date}
-                            dateChanged={dateChanged}
-                            numberOfSlots={numberOfSlots()}
+                            changedValue={dateChanged}
+                            amountSlots={numberOfSlots()}
                         />
                     </Steps>
                 </View>

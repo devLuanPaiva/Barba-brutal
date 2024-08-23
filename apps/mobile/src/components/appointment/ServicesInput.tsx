@@ -2,11 +2,8 @@ import { useServices } from "@barba/ui";
 import { Service } from "@barba/core";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import images from "@/src/data/constants/images";
+import { ServicesInputProps } from "@/src/data/interfaces";
 
-interface ServicesInputProps {
-  services: Service[];
-  servicesChanged: (services: Service[]) => void;
-}
 interface OptionProps {
   service: Service;
   onClick: (s: Service) => void;
@@ -40,12 +37,12 @@ function Option({ service, onClick, selected }: Readonly<OptionProps>) {
   );
 }
 
-export default function ServicesInput({ services, servicesChanged }: Readonly<ServicesInputProps>) {
+export default function ServicesInput({ services, onChange }: Readonly<ServicesInputProps>) {
   const { services: allServices } = useServices();
 
   function toggleServiceSelection(service: Service) {
     const found = services.find((s) => s.id === service.id);
-    servicesChanged(
+    onChange(
       found
         ? services.filter((s) => s.id !== service.id)
         : [...services, service],

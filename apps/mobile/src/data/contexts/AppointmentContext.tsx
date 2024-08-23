@@ -1,4 +1,3 @@
-
 import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { Professional, Service, UtilsDate, UtilsSchedule } from "@barba/core";
 import useUser from "../hooks/useUser";
