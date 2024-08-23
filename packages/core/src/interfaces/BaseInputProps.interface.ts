@@ -1,4 +1,5 @@
-import { Professional, Service } from "@barba/core";
+import Professional from "./Professional.interface";
+import Service from "./Service.interface";
 
 export interface BaseProps<T> {
   changedValue: (value: T) => void;
