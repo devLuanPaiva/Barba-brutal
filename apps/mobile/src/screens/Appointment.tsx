@@ -46,7 +46,12 @@ export default function Appointment({ navigation }: any) {
             labels={["Profissional", "Serviços", "Horário"]}
             allowNextStep={allowNextStep}
             allowNextStepChanged={setAllowNextStep}
-            finalize={() => navigation.navigate("Summary")}
+            update={false}
+            idAppointment={null}
+            finalize={() => navigation.navigate("Summary", {
+              update: false,
+              idAppointment: null
+          })}
           >
             <ProfessionalInput
               professionals={professional}

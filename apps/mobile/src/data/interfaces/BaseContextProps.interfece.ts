@@ -1,4 +1,4 @@
-import { User } from "@barba/core";
+import { Professional, Service, User } from "@barba/core";
 
 export interface BaseContextProps{
     user: User | null;
@@ -14,3 +14,17 @@ export interface UserContextProps extends BaseContextProps{
     register: (user: User) => Promise<void>;
     logout: () => void;
 }
+export interface AppointmentContextProps {
+    professional: Professional | null;
+    services: Service[];
+    date: Date;
+    occupiedSchedules: string[];
+    totalDuration(): string;
+    totalPrice(): number;
+    numberOfSlots(): number;
+    selectProfessional(professional: Professional): void;
+    selectServices(services: Service[]): void;
+    selectDate(date: Date): void;
+    schedule(): Promise<void>;
+    updateSchedule(id: number | string | undefined): Promise<void>;
+  }
