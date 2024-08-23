@@ -1,4 +1,4 @@
-import { DateInputProps } from "@/data/interfaces";
+import { DateInputProps } from "@barba/core";
 import InputDay from "./InputDay";
 import InputTimes from "./InputTimes";
 

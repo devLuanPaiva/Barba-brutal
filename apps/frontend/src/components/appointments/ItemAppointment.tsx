@@ -1,5 +1,4 @@
-import { AppointmentItemProps } from "@/data/interfaces";
-import { UtilsDate, UtilsSchedule } from "@barba/core";
+import { AppointmentItemProps, UtilsDate, UtilsSchedule } from "@barba/core";
 import { IconCalendar, IconPencil, IconTrash } from "@tabler/icons-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 import { useRouter } from "next/navigation";

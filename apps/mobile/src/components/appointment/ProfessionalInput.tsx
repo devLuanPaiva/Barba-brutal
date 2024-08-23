@@ -1,6 +1,5 @@
 import images from "@/src/data/constants/images";
-import { ProfessionalInputProps } from "@/src/data/interfaces";
-import { Professional } from "@barba/core";
+import { Professional, ProfessionalInputProps } from "@barba/core";
 import { useProfessionals } from "@barba/ui";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 

@@ -1,5 +1,4 @@
-import { DayInputProps } from "@/src/data/interfaces";
-import { UtilsDate } from "@barba/core";
+import { DayInputProps, UtilsDate } from "@barba/core";
 import { StyleSheet, Text, Pressable, View } from "react-native";
 
 

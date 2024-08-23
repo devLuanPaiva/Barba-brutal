@@ -53,7 +53,7 @@ export default function PageAppointment() {
           ]}
         >
           <ProfessionalInput
-            professional={professional}
+            professionals={professional}
             changedValue={professionalChanged}
             onChange={professionalChanged}
           />

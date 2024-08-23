@@ -1,8 +1,7 @@
 import { useServices } from "@barba/ui";
-import { Service } from "@barba/core";
+import { Service, ServicesInputProps } from "@barba/core";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import images from "@/src/data/constants/images";
-import { ServicesInputProps } from "@/src/data/interfaces";
 
 interface OptionProps {
   service: Service;

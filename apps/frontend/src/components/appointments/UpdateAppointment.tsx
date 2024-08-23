@@ -56,7 +56,7 @@ export default function UpdateAppointment() {
               ]}
             >
               <ProfessionalInput
-                professional={professional}
+                professionals={professional}
                 changedValue={professionalChanged}
                 onChange={professionalChanged}
               />

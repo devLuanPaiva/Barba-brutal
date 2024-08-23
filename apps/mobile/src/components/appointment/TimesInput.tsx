@@ -1,6 +1,5 @@
 import useAppointment from "@/src/data/hooks/useAppointments";
-import { TimesInputProps } from "@/src/data/interfaces";
-import { UtilsSchedule, UtilsDate } from "@barba/core";
+import { UtilsSchedule, UtilsDate, TimesInputProps } from "@barba/core";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 

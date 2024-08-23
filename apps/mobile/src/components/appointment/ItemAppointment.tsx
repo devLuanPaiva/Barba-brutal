@@ -1,8 +1,7 @@
-import { Appointment, UtilsDate } from "@barba/core";
+import { AppointmentItemProps, UtilsDate } from "@barba/core";
 import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AppointmentItemProps } from "@/src/data/interfaces";
 
 
 type RootStackParamList = {
