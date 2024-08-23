@@ -2,18 +2,26 @@ import { useState } from "react";
 import useUser from "./useUser";
 
 export default function useFormUser() {
-  const { login } = useUser();
-
+  const { login, register } = useUser();
+  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [errors, setErrors] = useState({ name: "", email: "", phone: "" });
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
 
   function validate() {
     let errors: any = {};
 
     if (!name) {
       errors.name = "Nome é obrigatório";
+    }
+    if (!password) {
+      errors.password = "Senha é obrigatória";
     }
     if (!email) {
       errors.email = "E-mail é obrigatório";
@@ -22,18 +30,20 @@ export default function useFormUser() {
     }
     if (!phone) {
       errors.phone = "Telefone é obrigatório";
-    } else if (!/^\d{10,11}$/.test(phone)) {
-      errors.phone = "Telefone deve ter 10 ou 11 dígitos";
     }
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
   }
 
-  async function register() {
+  async function registerUser() {
     if (validate()) {
-      await login({ name, email, phone });
+      await register({ name, email, phone, password });
     }
+  }
+
+  async function loginUser() {
+    await login({ email, password });
   }
 
   return {
@@ -44,6 +54,9 @@ export default function useFormUser() {
     phone,
     setPhone,
     errors,
-    register,
+    registerUser,
+    loginUser,
+    password,
+    setPassword,
   };
 }
