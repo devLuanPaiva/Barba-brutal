@@ -8,7 +8,7 @@ export default class UtilsDate {
   static applySchedule(date: Date, schedule: string): Date {
     const newDate = new Date(date);
     const parts = schedule.split(":");
-    newDate.setHours(parseInt(parts[0]!), parseInt(parts[1!]));
+    newDate.setHours(parseInt(parts[0]), parseInt(parts[1]));
     return newDate;
   }
   static formatDate(date: Date): string {

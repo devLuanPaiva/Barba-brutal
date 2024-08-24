@@ -1,5 +1,3 @@
-export * from "./BaseInputProps.interface";
-export * from "./BaseItemProps.interface";
 export * from "./BaseContextProps.interface";
 export * from './BasePageProps.interface'
 export * from "./StepsProps.interface";

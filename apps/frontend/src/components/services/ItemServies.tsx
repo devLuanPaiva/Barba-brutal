@@ -1,4 +1,4 @@
-import { ServicesItemProps } from "@/data/interfaces";
+import { ServicesItemProps } from "@barba/core";
 import Image from "next/image";
 
 export default function ItemServices(props: Readonly<ServicesItemProps>) {

@@ -21,7 +21,7 @@ export default function EndAppointments() {
               Aqui estão seus últimos agendamentos:
             </Text>
             {upcomingAppointments.map((a: Appointment) => (
-              <ItemAppointment appointment={a} key={a.id} delete={deleteAppointment} />
+              <ItemAppointment item={a} key={a.id} delete={deleteAppointment} />
             ))
             }
           </View>

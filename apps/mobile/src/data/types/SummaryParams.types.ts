@@ -1,6 +1,6 @@
 export type SummaryParams = {
   update: boolean;
-  idAppointment: string;
+  idAppointment: string | number | null;
 };
 
 export type StackParamList = {

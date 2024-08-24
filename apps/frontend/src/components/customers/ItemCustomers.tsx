@@ -1,4 +1,4 @@
-import { CustomersItemProps } from "@/data/interfaces";
+import { CustomersItemProps } from "@barba/core";
 
 export default function ItemCustomers(props: Readonly<CustomersItemProps>) {
   return (
