@@ -4,12 +4,16 @@ import useAPI from "../hooks/useAPI";
 import { UserContextProps } from "../interfaces";
 import { User } from "@barba/core";
 import Toast from 'react-native-toast-message';
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
-
+type RootStackParamList = {
+  Register: undefined; 
+};
 const UserContext = createContext<UserContextProps>({} as any);
 
 export function UserProvider({ children }: any) {
   const { httpPOST } = useAPI();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { clearSection, createSection, loading, user } = useSection();
 
   const register = useCallback(async (user: User) => {
@@ -35,8 +39,9 @@ export function UserProvider({ children }: any) {
   }, [createSection, httpPOST]);
 
   const logout = useCallback(() => {
+    navigation.navigate("Register");
     clearSection();
-  }, [clearSection]);
+  }, [clearSection, navigation]);
 
   const contextValue = useMemo(() => {
     return {
