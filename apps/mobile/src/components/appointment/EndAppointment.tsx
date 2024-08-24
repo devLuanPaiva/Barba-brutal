@@ -4,6 +4,7 @@ import React from "react";
 import useUser from "@/src/data/hooks/useUser";
 import ItemAppointment from "./ItemAppointment";
 import useLoadSchedule from "@/src/data/hooks/useLoadSchedule";
+import ScheduleProfessionalItem from "./ScheduleProfessionalItem";
 
 export default function EndAppointments() {
   const { user } = useUser();
@@ -20,10 +21,16 @@ export default function EndAppointments() {
             <Text style={styles.caption}>
               Aqui estão seus últimos agendamentos:
             </Text>
-            {upcomingAppointments.map((a: Appointment) => (
-              <ItemAppointment item={a} key={a.id} delete={deleteAppointment} />
-            ))
-            }
+            {user?.barber ? (
+              upcomingAppointments.map((a: Appointment) => (
+                <ScheduleProfessionalItem item={a} key={a.id} delete={deleteAppointment} />
+              ))
+            ) : (
+              upcomingAppointments.map((a: Appointment) => (
+                <ItemAppointment item={a} key={a.id} delete={deleteAppointment} />
+              ))
+            )}
+
           </View>
         );
       } else {
