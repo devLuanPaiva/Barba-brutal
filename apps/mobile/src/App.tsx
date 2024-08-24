@@ -9,8 +9,14 @@ import { SectionProvider } from "./data/contexts/SectionContext";
 import Toast from "react-native-toast-message";
 import EditAppointment from "./screens/EditAppointment";
 import React from "react";
+import RequireAuth from "./data/contexts/RequiteAuth";
 
 const Stack = createNativeStackNavigator();
+const ProtectedMain = () => (
+  <RequireAuth>
+    <Main />
+  </RequireAuth>
+);
 
 export default function App() {
   return (
@@ -28,7 +34,7 @@ export default function App() {
                 />
                 <Stack.Screen
                   name="Main"
-                  component={Main}
+                  component={ProtectedMain}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen

@@ -12,19 +12,18 @@ export default function Profile({ navigation }: any) {
         source={require("../../../assets/avatar.png")}
         style={styles.avatar}
       />
-      <Text style={styles.destaque}>Fala, {user?.name}!</Text>
-      <Text style={styles.texto}>E-mail: {user?.email.toLowerCase()}</Text>
-      <Text style={styles.texto}>
-        Telefone: {PhoneUtils.format(user?.phone!)}
+      <Text style={styles.highlight}>Fala, {user?.name}!</Text>
+      <Text style={styles.text}>Email: {user?.email.toLowerCase()}</Text>
+      <Text style={styles.text}>
+        Phone: {PhoneUtils.format(user?.phone!)}
       </Text>
       <Pressable
-        style={styles.botao}
+        style={styles.button}
         onPress={() => {
-          logout();
-          navigation.replace("Register");
+          logout();       
         }}
       >
-        <Text style={styles.textoBotao}>SAIR</Text>
+        <Text style={styles.buttonText}>Sair</Text>
       </Pressable>
     </View>
   );
@@ -43,19 +42,19 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
     marginRight: 12,
   },
-  destaque: {
+  highlight: {
     fontSize: 28,
     fontWeight: "600",
     color: "#fff",
     margin: 5,
   },
-  texto: {
+  text: {
     marginTop: 2,
     fontSize: 18,
     fontWeight: "400",
     color: "#A9A9A9",
   },
-  botao: {
+  button: {
     margin: 30,
     width: "35%",
     height: 45,
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 5,
   },
-  textoBotao: {
+  buttonText: {
     fontSize: 16,
     color: "white",
     fontWeight: "bold",
