@@ -6,6 +6,6 @@ export interface IconProps {
   size?: number;
 }
 
-export default function Icone(props: IconProps) {
+export default function Icone(props: Readonly<IconProps>) {
   return <Ionicons name={props.nameIcon} size={props.size ?? 28} {...props} />;
 }

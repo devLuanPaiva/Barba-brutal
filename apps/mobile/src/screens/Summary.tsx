@@ -1,10 +1,28 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import useAppointment from "../data/hooks/useAppointments";
 import { UtilsDate } from "@barba/core";
+import { StackParamList } from "../data/types";
+import React from "react";
+import { StackScreenProps } from "@react-navigation/stack";
 
-export default function Summary({ navigation }: any) {
-  const { date, professional, services, totalPrice, totalDuration, schedule } =
-    useAppointment();
+type SummaryProps = StackScreenProps<StackParamList, 'Summary'>
+
+export default function Summary({ route, navigation }: Readonly<SummaryProps>) {
+  const { update, idAppointment } = route.params;
+  const { date, professional, services, totalPrice, totalDuration, schedule, updateSchedule } = useAppointment();
+
+  async function finalizeAppointment() {
+    try {
+      if (!update) {
+        await schedule();
+      } else (
+        await updateSchedule(idAppointment!)
+      )
+      navigation.navigate("Home" as any);
+    } catch (e) {
+      console.error(e);
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -16,7 +34,7 @@ export default function Summary({ navigation }: any) {
 
         <Text style={styles.label}>SERVIÇOS</Text>
         {services.map((s, index) => (
-          <Text key={index} style={styles.servico}>
+          <Text key={s.id} style={styles.servico}>
             {index + 1}. {s.name}
           </Text>
         ))}
@@ -37,10 +55,7 @@ export default function Summary({ navigation }: any) {
 
         <Pressable
           style={styles.botao}
-          onPress={async () => {
-            await schedule();
-            navigation.navigate("Home");
-          }}
+          onPress={finalizeAppointment}
         >
           <Text style={styles.textoBotao}>Finalizar Agendamento</Text>
         </Pressable>

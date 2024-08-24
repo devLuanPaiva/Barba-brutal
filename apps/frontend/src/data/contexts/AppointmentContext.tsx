@@ -1,52 +1,56 @@
 "use client";
-import AppointmentContextProps from "../interfaces/AppointmentContextProps.interface";
-import React, { createContext, useCallback, useEffect, useState } from "react";
+import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { Professional, Service, UtilsSchedule, UtilsDate } from "@barba/core";
 import useUser from "../hooks/useUser";
 import useAPI from "../hooks/useAPI";
+import { AppointmentContextProps } from "../interfaces";
 
 export const AppointmentContext = createContext({} as AppointmentContextProps);
 export function AppointmentProvider({
   children,
 }: {
-  children: React.ReactNode;
+  readonly children: React.ReactNode;
 }) {
   const [professional, setProfessional] = useState<Professional | null>(null);
   const [services, setServices] = useState<Service[]>([]);
   const [date, setDate] = useState<Date>(UtilsDate.today());
   const { user } = useUser();
   const [occupiedSchedules, setOccupiedSchedules] = useState<string[]>([]);
-  const { httpGET, httpPOST } = useAPI();
+  const { httpGET, httpPOST, httpPUT } = useAPI();
 
-  function selectProfessional(professional: Professional) {
+
+  const selectProfessional = useCallback((professional: Professional) => {
     setProfessional(professional);
-  }
+  }, []);
 
-  function selectServices(services: Service[]) {
+  const selectServices = useCallback((services: Service[]) => {
     setServices(services);
-  }
+  }, []);
 
-  function totalDuration() {
-    return UtilsSchedule.durationTotal(services)
-  }
+  const totalDuration = useCallback(() => {
+    return UtilsSchedule.durationTotal(services);
+  }, [services]);
 
-  function totalPrice() {
-    return services.reduce((acc, current) => {
-      return (acc + current.price)
-    }, 0);
-  }
+  const totalPrice = useCallback(() => {
+    return services.reduce((acc, current) => acc + current.price, 0);
+  }, [services]);
 
-  const selectDate = useCallback(function (date: Date) {
+  const selectDate = useCallback((date: Date) => {
     setDate(date);
   }, []);
 
-  function numberOfSlots() {
-    return services.reduce((acc, service) => {
-      return (acc + service.amountSlots)
-    }, 0);
-  }
+  const numberOfSlots = useCallback(() => {
+    return services.reduce((acc, service) => acc + service.amountSlots, 0);
+  }, [services]);
 
-  async function schedule() {
+  const clear = useCallback(() => {
+    setDate(UtilsDate.today());
+    setOccupiedSchedules([]);
+    setProfessional(null);
+    setServices([]);
+  }, []);
+
+  const schedule = useCallback(async () => {
     if (!user?.email) return;
     await httpPOST('appointment', {
       user: user,
@@ -54,15 +58,10 @@ export function AppointmentProvider({
       professional: professional!,
       services: services,
     });
-
     clear();
-  }
-  function clear() {
-    setDate(UtilsDate.today());
-    setOccupiedSchedules([]);
-    setProfessional(null);
-    setServices([]);
-  }
+  }, [date, professional, services, user, httpPOST, clear]);
+
+  
   const getOccupiedSchedules = useCallback(
     async function (date: Date, professional: Professional): Promise<string[]> {
       try {
@@ -78,7 +77,6 @@ export function AppointmentProvider({
     },
     [httpGET],
   );
-
   useEffect(() => {
     if (!date || !professional) return;
     getOccupiedSchedules(date, professional).then((schedules) => {
@@ -89,24 +87,36 @@ export function AppointmentProvider({
       }
     });
   }, [date, professional, getOccupiedSchedules]);
-
+  
+  const updateSchedule = useCallback(async (id: number | string) => {
+    if (!user?.email) return
+    await httpPUT(`appointment/update/${id}`, {
+      date: date,
+      professional: professional!,
+      services: services,
+    })
+    clear()
+  }, [date, professional, services, httpPUT, clear, user])
+  
+  const contextValue = useMemo(() => {
+    return {
+      date,
+      professional,
+      services,
+      occupiedSchedules,
+      totalDuration,
+      totalPrice,
+      selectDate,
+      selectProfessional,
+      numberOfSlots,
+      selectServices,
+      schedule,
+      updateSchedule,
+    };
+  }, [date, professional, services, occupiedSchedules, totalDuration, totalPrice, selectDate, selectProfessional, numberOfSlots, selectServices, schedule, updateSchedule]);
 
   return (
-    <AppointmentContext.Provider
-      value={{
-        date,
-        professional,
-        services,
-        occupiedSchedules,
-        totalDuration,
-        totalPrice,
-        selectDate,
-        selectProfessional,
-        numberOfSlots,
-        selectServices,
-        schedule,
-      }}
-    >
+    <AppointmentContext.Provider value={contextValue} >
       {children}
     </AppointmentContext.Provider>
   );

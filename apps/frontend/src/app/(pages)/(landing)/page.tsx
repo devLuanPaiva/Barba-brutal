@@ -7,7 +7,7 @@ import ContainerBackground from "@/components/shared/ContainerBg";
 
 export default function Landing() {
   return (
-    <div>
+    <>
       <SloganTitle />
       <ContainerBackground image="/banners/servicos.webp">
         <OurServices />
@@ -18,6 +18,6 @@ export default function Landing() {
       <ContainerBackground image="/banners/clientes.webp">
         <OurCustomers />
       </ContainerBackground>
-    </div>
+    </>
   );
 }

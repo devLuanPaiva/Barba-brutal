@@ -1,5 +1,4 @@
 "use client";
-
 import InputDate from "@/components/appointments/InputDate";
 import ProfessionalInput from "@/components/appointments/InputProfessional";
 import ServicesInput from "@/components/appointments/InputServices";
@@ -38,18 +37,12 @@ export default function PageAppointment() {
     setAllowNextStep(hasDate && validHour);
   }
   return (
-    <div className="flex flex-col bg-zinc-900">
+    <section className="flex flex-col bg-zinc-900">
       <Header
         title="Agendamento de Serviços"
         description="Seja atendido exatamente no horário marcado."
       />
-      <div
-        className="
-                    container flex flex-col lg:flex-row 
-                    items-center lg:items-start lg:justify-around 
-                    gap-10 lg:gap-0 py-10
-                "
-      >
+      <section className="container flex flex-col lg:flex-row items-center lg:items-start lg:justify-around gap-10 lg:gap-0 py-10">
         <Steps
           allowsNextStep={allowNextStep}
           changeNextStep={setAllowNextStep}
@@ -60,18 +53,19 @@ export default function PageAppointment() {
           ]}
         >
           <ProfessionalInput
-            professional={professional}
-            professionalChanged={professionalChanged}
+            professionals={professional}
+            changedValue={professionalChanged}
+            onChange={professionalChanged}
           />
-          <ServicesInput services={services} changedService={servicesChanged} />
+          <ServicesInput services={services} changedValue={servicesChanged} onChange={servicesChanged} />
           <InputDate
             date={date}
-            dateChanged={dateChanged}
+            changedValue={dateChanged}
             amountSlots={numberOfSlots()}
           />
         </Steps>
         <Summary />
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }
