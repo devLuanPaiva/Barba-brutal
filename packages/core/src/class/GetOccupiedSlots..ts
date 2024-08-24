@@ -1,5 +1,5 @@
 import { SLOT_TIME } from "../constants";
-import RepositoryAppointment from "./RepositoryAppointment.interface";
+import RepositoryAppointment from "../interfaces/RepositoryAppointment.interface";
 
 export default class GetOccupiedSlots {
   constructor(private readonly repo: RepositoryAppointment) {}

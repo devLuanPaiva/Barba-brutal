@@ -18,7 +18,7 @@ export default function PageSchedule() {
                         {appointments.map((appointment) => (
                             <ScheduleProfessionalItem
                                 key={appointment.id}
-                                appointment={appointment}
+                                item={appointment}
                                 delete={deleteAppointment}
                             />
                         ))}

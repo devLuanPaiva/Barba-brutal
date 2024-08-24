@@ -16,7 +16,7 @@ export default function Summary({ route, navigation }: Readonly<SummaryProps>) {
       if (!update) {
         await schedule();
       } else (
-        await updateSchedule(idAppointment)
+        await updateSchedule(idAppointment!)
       )
       navigation.navigate("Home" as any);
     } catch (e) {

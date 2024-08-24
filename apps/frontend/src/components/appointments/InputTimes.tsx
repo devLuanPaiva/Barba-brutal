@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { IconX } from "@tabler/icons-react";
-import { UtilsDate, UtilsSchedule } from "@barba/core";
+import { TimesInputProps, UtilsDate, UtilsSchedule } from "@barba/core";
 import useAppointment from "@/data/hooks/useAppointments";
-import { TimesInputProps } from "@/data/interfaces";
 
 export default function InputTimes(props: Readonly<TimesInputProps>) {
   const [hoveredTime, setHoveredTime] = useState<string | null>(null);

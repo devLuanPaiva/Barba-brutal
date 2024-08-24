@@ -1,4 +1,5 @@
-import { Professional, Service } from "@barba/core";
+import Professional from "./Professional.interface";
+import Service from "./Service.interface";
 
 export interface BaseProps<T> {
   changedValue: (value: T) => void;
@@ -24,6 +25,6 @@ export interface ServicesInputProps extends BaseProps<Service[]> {
 }
 
 export interface ProfessionalInputProps extends BaseProps<Professional> {
-  professional: Professional | null;
+  professionals: Professional | null;
   onChange: (professional: Professional) => void;
 }

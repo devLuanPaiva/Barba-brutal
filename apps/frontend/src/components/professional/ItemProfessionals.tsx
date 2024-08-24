@@ -6,7 +6,7 @@ import {
   IconBrandX,
   IconBrandYoutube,
 } from "@tabler/icons-react";
-import { ProfessionalItemProps } from "@/data/interfaces";
+import { ProfessionalItemProps } from "@barba/core";
 
 export default function ItemProfessionals(props: Readonly<ProfessionalItemProps>) {
   return (
