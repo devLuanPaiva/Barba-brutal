@@ -6,13 +6,21 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "tsup src/index.ts --dts --watch",
-    "build": "tsup src/index.ts --dts --minify"
+    "build": "tsup src/index.ts --dts --minify",
+    "test": "jest --watchAll --colletCoverage"
   },
   "keywords": [],
   "author": "Luan Alves de Paiva",
   "license": "ISC",
   "devDependencies": {
-    "tsup": "^8.1.2"
+    "tsup": "^8.1.2",
+    "@types/jest": "^29.5.12",
+    "eslint": "^9.9.1",
+    "eslint-config-custom": "*",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "tsconfig": "*",
+    "typescript": "^5.5.4" 
   },
   "dependencies": {
     "typescript": "^5.5.3"
