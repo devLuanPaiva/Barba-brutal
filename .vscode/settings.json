@@ -1,4 +1,7 @@
 {
-    "files.eol": "\n",
-    "prettier.endOfLine": "lf"
+  "files.eol": "\n",
+  "prettier.endOfLine": "lf",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
 }

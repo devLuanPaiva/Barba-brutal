@@ -1,20 +1,18 @@
-import { View } from 'react-native'
-import TimesInput from './TimesInput'
-import DayInput from './DayInput'
+import { View } from "react-native";
+import TimesInput from "./TimesInput";
+import DayInput from "./DayInput";
+import { DateInputProps } from "@barba/core";
+export default function DateInput(props: Readonly<DateInputProps>) {
+  const { date, amountSlots, changedValue } = props;
 
-export interface DateInputProps {
-    date: Date
-    numberOfSlots: number
-    dateChanged: (date: Date) => void
-}
-
-export default function DateInput(props: DateInputProps) {
-    const { date, numberOfSlots, dateChanged } = props
-
-    return (
-        <View>
-            <DayInput date={date} dateChanged={dateChanged} />
-            <TimesInput date={date} numTimes={numberOfSlots} dateChanged={dateChanged} />
-        </View>
-    )
+  return (
+    <View>
+      <DayInput date={date} changedValue={changedValue} />
+      <TimesInput
+        date={date}
+        slotsQuantity={amountSlots}
+        changedValue={changedValue}
+      />
+    </View>
+  );
 }

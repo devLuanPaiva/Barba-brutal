@@ -1,4 +1,4 @@
-export default interface HeaderProps{
-    title: string;
-    description: string;
+export interface HeaderProps {
+  title: string;
+  description: string;
 }

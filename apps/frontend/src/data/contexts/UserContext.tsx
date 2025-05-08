@@ -1,63 +1,46 @@
-'use client'
-import { createContext, useCallback, useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { User } from '@barba/core'
-import useSessionStorage from '../hooks/useSessionStorage'
+"use client";
+import { createContext, useCallback, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import { User } from "@barba/core";
+import useSection from "../hooks/useSection";
+import useAPI from "../hooks/useAPI";
+import { UserContextProps } from "../interfaces";
 
-export interface UserContextProps {
-    loading: boolean
-    user: User | null
-    login: (user: User) => Promise<void>
-    logout: () => void
-}
-
-const UserContext = createContext<UserContextProps>({} as any)
+const UserContext = createContext<UserContextProps>({} as any);
 
 export function UserProvider({ children }: any) {
-    const { get, set } = useSessionStorage()
-    const router = useRouter()
-    const [loading, setLoading] = useState(true)
-    const [user, setUser] = useState<User | null>(null)
+  const { httpPOST } = useAPI()
+  const { clearSection, createSection, loading, user } = useSection()
+  const router = useRouter();
 
-    const loadUser = useCallback(
-        function () {
-            try {
-                const localUser = get('user')
-                if (localUser) {
-                    setUser(localUser)
-                }
-            } finally {
-                setLoading(false)
-            }
-        },
-        [get]
-    )
+  const register = useCallback(async (user: User) => {
+    await httpPOST('user/register', user);
+  }, [httpPOST]);
 
-    async function login(user: User) {
-        setUser(user)
-        set('user', user)
-    }
+  const login = useCallback(async (user: Partial<User>) => {
+    const token = await httpPOST('user/login', user);
+    createSection(token);
+  }, [createSection, httpPOST]);
 
-    function logout() {
-        router.push('/')
-        setUser(null)
-        set('user', null)
-    }
+  const logout = useCallback(() => {
+    clearSection();
+    router.push("/");
+  }, [router, clearSection]);
 
-    useEffect(() => loadUser(), [loadUser])
-
-    return (
-        <UserContext.Provider
-            value={{
-                loading,
-                user,
-                login,
-                logout,
-            }}
-        >
-            {children}
-        </UserContext.Provider>
-    )
+  const contextValue = useMemo(() => {
+    return {
+      loading,
+      user,
+      login,
+      register,
+      logout,
+    };
+  }, [loading, user, login, register, logout]);
+  return (
+    <UserContext.Provider value={contextValue}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
-export default UserContext
+export default UserContext;

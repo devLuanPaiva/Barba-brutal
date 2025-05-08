@@ -1,4 +1,4 @@
-export default interface AvaliationProps{
-    value: number;
-    amount: number;
+export interface AvaliationProps {
+  value: number;
+  amount: number;
 }

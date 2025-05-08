@@ -1,13 +1,17 @@
-import InputDateProps from "@/data/interfaces/InputDateProps.interface";
+import { DateInputProps } from "@barba/core";
 import InputDay from "./InputDay";
 import InputTimes from "./InputTimes";
 
-export default function InputDate(props: InputDateProps) {
-    const { amountSlots, date, dateChanged } = props;
-    return (
-        <div className="flex flex-col gap-10">
-            <InputDay date={date} changedDate={dateChanged} />
-            <InputTimes date={date} slotsQuantity={amountSlots} dateChanged={dateChanged} />
-        </div>
-    )
+export default function InputDate(props: Readonly<DateInputProps>) {
+  const { amountSlots, date, changedValue } = props;
+  return (
+    <section className="flex flex-col gap-10">
+      <InputDay date={date} changedValue={changedValue} />
+      <InputTimes
+        date={date}
+        slotsQuantity={amountSlots}
+        changedValue={changedValue}
+      />
+    </section>
+  );
 }

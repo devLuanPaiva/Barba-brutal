@@ -8,15 +8,26 @@ export default class UtilsDate {
   static applySchedule(date: Date, schedule: string): Date {
     const newDate = new Date(date);
     const parts = schedule.split(":");
-    newDate.setHours(parseInt(parts[0]!), parseInt(parts[1!]));
+    newDate.setHours(parseInt(parts[0]), parseInt(parts[1]));
     return newDate;
   }
-  static formatDate(data: Date): string {
+  static formatDate(date: Date): string {
+    return date.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
+
+  static formatDateAndTime(data: Date): string {
     return data.toLocaleDateString('pt-BR', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
     })
 }
 }

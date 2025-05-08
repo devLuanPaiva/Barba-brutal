@@ -8,6 +8,13 @@ export default class UtilsSchedule {
       evening: this.scheduleGenerator([18, 19, 20, 21]),
     };
   }
+  static durationTotal(services: { amountSlots: number }[]) {
+    const duration = services.reduce((acc, current) => {
+      return (acc += current.amountSlots * 15);
+    }, 0);
+
+    return `${Math.trunc(duration / 60)}h ${duration % 60}m`
+  }
   private static scheduleGenerator(hour: number[]) {
     return hour.reduce((times, hour) => {
       const allTimes = this.minutes.map((minute) => {

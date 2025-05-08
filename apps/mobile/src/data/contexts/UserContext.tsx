@@ -1,60 +1,63 @@
-'use client'
-import { createContext, useCallback, useEffect, useState } from 'react'
-import { User } from '@barba/core'
-import useSessionStorage from '../hooks/useAsyncStorage'
+import React, { createContext, useCallback, useMemo } from "react";
+import useSection from "../hooks/useSection";
+import useAPI from "../hooks/useAPI";
+import { UserContextProps } from "../interfaces";
+import { User } from "@barba/core";
+import Toast from 'react-native-toast-message';
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
-export interface UserContextProps {
-    loading: boolean
-    user: User | null
-    login: (user: User) => Promise<void>
-    logout: () => void
-}
-
-const UserContext = createContext<UserContextProps>({} as any)
+type RootStackParamList = {
+  Register: undefined; 
+};
+const UserContext = createContext<UserContextProps>({} as any);
 
 export function UserProvider({ children }: any) {
-    const { get, set } = useSessionStorage()
-    const [loading, setLoading] = useState(true)
-    const [user, setUser] = useState<User | null>(null)
+  const { httpPOST } = useAPI();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { clearSection, createSection, loading, user } = useSection();
 
-    const loadUser = useCallback(
-        async function () {
-            try {
-                const localUser = await get('user')
-                if (localUser) {
-                    setUser(localUser)
-                }
-            } finally {
-                setLoading(false)
-            }
-        },
-        [get]
-    )
-
-    async function login(user: User) {
-        setUser(user)
-        await set('user', user)
+  const register = useCallback(async (user: User) => {
+    try {
+      await httpPOST('user/register', user);
+      Toast.show({
+        type: 'success',
+        text1: 'Registro bem-sucedido!',
+        text2: 'Você se registrou com sucesso.',
+      });
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Erro no registro',
+        text2: 'Algo deu errado durante o registro. Tente novamente.',
+      });
     }
+  }, [httpPOST]);
 
-    function logout() {
-        setUser(null)
-        set('user', null)
-    }
+  const login = useCallback(async (user: Partial<User>) => {
+    const token = await httpPOST('user/login', user);
+    createSection(token);
+  }, [createSection, httpPOST]);
 
-    useEffect(() => { loadUser() }, [loadUser])
+  const logout = useCallback(() => {
+    navigation.navigate("Register");
+    clearSection();
+  }, [clearSection, navigation]);
 
-    return (
-        <UserContext.Provider
-            value={{
-                loading,
-                user,
-                login,
-                logout,
-            }}
-        >
-            {children}
-        </UserContext.Provider>
-    )
+  const contextValue = useMemo(() => {
+    return {
+      loading,
+      user,
+      login,
+      register,
+      logout,
+    };
+  }, [loading, user, login, register, logout]);
+
+  return (
+    <UserContext.Provider value={contextValue}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
-export default UserContext
+export default UserContext;
