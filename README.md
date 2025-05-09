@@ -41,6 +41,10 @@ Barba Brutal é um sistema completo para uma barbearia com uma temática de rock
   - native
   - native-stack
 
+## 🌌 Interfaces
+### Tela Inicial
+![Home](https://ik.imagekit.io/p0mm3nebo/barbaBrutal/image2.png?updatedAt=1746727826238)
+
 ## Como Rodar o Projeto
 
 ### Pré-requisitos
